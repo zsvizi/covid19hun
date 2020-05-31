@@ -39,7 +39,7 @@ t;
 Begin["`Private`"]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Parameters*)
 
 
@@ -98,7 +98,7 @@ inits=Table[var/.Map[#->#[k][0]&,var],{k,1,nAge}];
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Model*)
 
 
@@ -287,7 +287,7 @@ mu[[k]]* gammac[[k]]*var[[p,k,id[ic]]],{p,1,patch},{k,1,nAge}];
 (*C'[t]*)
 eqnC=Table[D[var[[p,k,id[c]]],t]==
 (*pre-symptomatic infection period*)
-alphaP[[k]]var[[p,k,id[ip]]],{p,1,patch},{k,1,nAge}];
+var[[p,k,id[s]]]/ageDistribution[[p,k]]*incidence[[p,k]],{p,1,patch},{k,1,nAge}];
 
 (*All eqns*)
 eqn=Transpose[Join[{eqns, eqnl1, eqnl2, eqnip}, eqnIa, eqnIs, {eqnIh, eqnIc, eqnIcr, eqnR, eqnD, eqnC}]];
