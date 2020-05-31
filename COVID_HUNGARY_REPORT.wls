@@ -1655,11 +1655,11 @@ Filling->{
 {1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}}]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Technical appendix*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Contact matrix - heatmap*)
 
 
