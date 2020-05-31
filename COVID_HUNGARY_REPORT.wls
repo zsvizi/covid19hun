@@ -1,11 +1,14 @@
 #!/usr/bin/env wolframscript -cloud
 (* ::Package:: *)
 
-Import[StringJoin[NotebookDirectory[],"/modules/contactmatrix.wl"]]
-Import[StringJoin[NotebookDirectory[],"/modules/model.wl"]]
+Import[StringJoin[NotebookDirectory[],"modules/contactmatrix.wl"]]
+Import[StringJoin[NotebookDirectory[],"modules/model.wl"]]
 
 
-generated=StringJoin[NotebookDirectory[],"/generated/"];
+If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[StringJoin[NotebookDirectory[],"generated"]]];
+
+
+generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
 (* ::Section::Closed:: *)
