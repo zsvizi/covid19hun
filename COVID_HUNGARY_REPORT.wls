@@ -11,7 +11,7 @@ If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[Str
 generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Preliminary calculations*)
 
 
@@ -108,7 +108,7 @@ fPiScaled[[6]]*binAll[[10]]/sumAll+
 fPiScaled[[7]]*binAll[[11]]/sumAll
 
 
-fPiScaled*0.5/wsum
+(*fPiScaled*0.5/wsum*) (*\[EAcute]rt\[EAcute]kad\[AAcute]s n\[EAcute]lk\[UDoubleDot]li, nem plotol\[OAcute] cella, kihagyhat\[OAcute]*)
 
 
 (*Mild symptoms | Infection*)
@@ -140,14 +140,14 @@ asympPinf[[6]]*binAll[[10]]/sumAll+
 asympPinf[[7]]*binAll[[11]]/sumAll
 
 
-mildScaled*0.5/wsum2
+(*mildScaled*0.5/wsum2*) (*\[EAcute]rt\[EAcute]kad\[AAcute]s n\[EAcute]lk\[UDoubleDot]li, nem plotol\[OAcute] cella, kihagyhat\[OAcute]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Initialization*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Parameters*)
 
 
@@ -170,7 +170,7 @@ ksi=xi;
 asymp=relInfectA;
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Initial values*)
 
 
@@ -209,22 +209,22 @@ sumOfI[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 fdie[t_]:=Evaluate[Sum[d[i][t],{i,1,nAge}]/.sol];
 
 
-Plot[fdie[t],{t,0,200}]
+Plot[fdie[t],{t,0,200}] (*kihagyhat\[OAcute]*)
 
 
 fhosp[t_]:=Evaluate[Sum[ih[i][t],{i,1,nAge}]/.sol];
 
 
-Plot[fhosp[t],{t,0,200}]
+Plot[fhosp[t],{t,0,200}](*kihagyhat\[OAcute]*)
 
 
-Plot[sumOfI[t],{t,0,200}]
+Plot[sumOfI[t],{t,0,200}](*kihagyhat\[OAcute]*)
 
 
 fincidence[s_]:=Evaluate[(Sum[c[i][t],{i,1,nAge}]/.sol)/.t->(s+1)]-Evaluate[(Sum[c[i][t],{i,1,nAge}]/.sol)/.t->s];
 
 
-Plot[fincidence[s],{s,1,500}]
+Plot[fincidence[s],{s,1,500}](*kihagyhat\[OAcute]*)
 
 
 t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
@@ -236,20 +236,20 @@ die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
 hosp0=t/.FindRoot[fhosp[t]==200,{t,150}][[1]]
 
 
-initialValuesI=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->t0,2]
+initialValuesI=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->t0,2](*kihagyhat\[OAcute]*)
 
 
 initialValuesImod=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->die0,2]
 
 
-initialValuesI[[7,-5]]+=10;
-initialValuesI[[6,-5]]+=7;
+initialValuesI[[7,-5]]+=10;(*kihagyhat\[OAcute]*)
+initialValuesI[[6,-5]]+=7;(*kihagyhat\[OAcute]*)
 
 
-initialValuesI=Round[initialValuesI]
+initialValuesI=Round[initialValuesI](*kihagyhat\[OAcute]*)
 
 
-mod=1; modh=1; idosadd=-15; icuadd = 3;R0=1.05;
+mod=1; modh=1; idosadd=-15; icuadd = 3;R0=1.05;(*kihagyhat\[OAcute]*)
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp]
@@ -262,13 +262,13 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-Evaluate[Sum[d[i][t],{i,1,nAge}]/.sol]/.t->24
+Evaluate[Sum[d[i][t],{i,1,nAge}]/.sol]/.t->24(*kihagyhat\[OAcute]*)
 
 
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol]/.t->24
+Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol]/.t->24(*kihagyhat\[OAcute]*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Functions*)
 
 
@@ -279,7 +279,7 @@ cumulative=Table[Sum[c[j][t],{j,1,i}],{i,1,nAge}];
 sumOfI[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.sol];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -302,8 +302,8 @@ ticklabel2={{0,"1.May"},{31+30,"1.July"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+
 ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"},{365,"1.May"},{365+31+30+30+31,"1.Sept"},{365+31+30+30+31+30+31+30+31,"1.Jan"}};
 
 
-(* ::Subsection::Closed:: *)
-(*Unmitigated scenario*)
+(* ::Subsection:: *)
+(*Unmitigated scenario (kihagyhat\[OAcute], cikkben nincs)*)
 
 
 R0=2.2;
@@ -401,7 +401,7 @@ Ticks->{ticklabel1,
 Export[StringJoin[generated,"unmitigated_cumu.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Weak control (25% transmission reduction)*)
 
 
@@ -435,7 +435,80 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}]
 Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 
 
-(*Epidemic curve*)
+R0=1.32;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+plt=Plot[
+{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
+Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,300},
+PlotRange->{0,All},
+PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+LabelStyle->Directive[Black,35],
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
+PlotLabel->Style["Moderate control, R = 1.32\nTotal hospital bed and ICU need"],
+PlotStyle->twoPlotsStylehosp,
+(*PlotLegends->Placed[LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},LegendMarkerSize->{40,12},LegendMarkers -> 
+    Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.785, 0.6}],*)
+Background->White,
+FrameTicks->{{0, 60, 120,180,240,300},{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "}}},  ImageSize->900]
+
+
+R0=1.1;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+plt=Plot[
+{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
+Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,650},
+PlotRange->{0,All},
+PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+LabelStyle->Directive[ Black,35],
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
+PlotLabel->Style["Strong control, R = 1.1\nTotal hospital bed and ICU need"],
+PlotStyle->twoPlotsStylehosp,
+PlotLegends->Placed[LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},LegendMarkerSize->{40,12},LegendMarkers -> 
+    Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
+Background->White,
+FrameTicks->{{0, 120, 240, 360, 480, 600},{{250, "250 "},{500, "500 "},{750, "750 "},{1000, "1,000 "}}}, ImageSize->900]
+
+
+R0=1.65;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+(*Incidence*)
+plt=Plot[fincidence[s],{s,1,200},
+PlotRange->{0, All},
+PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+LabelStyle->Directive[Black, 35],
+PlotLabel->Style["Incidence"],
+AxesStyle->Directive[Thickness[0.005]],
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
+PlotStyle->twoPlotsStyle,
+Background->White,
+FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{20000,"20,000 "},{40000,"40,000 "},{60000,"60,000 "},{80000,"80,000 "},{100000,"100,000 "},{120000,"120,000 "}}}, ImageSize->900]
+
+
+(*Epidemic curve, kihagyhat\[OAcute]*)
 plt=Plot[
 {
 Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
@@ -456,7 +529,7 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{100000,"100,000 "},{200000,"200,000
 Export[StringJoin[generated,"weak_epi.pdf"],plt]
 
 
-(*Epidemic curve*)
+(*Incidence*)
 plt=Plot[fincidence[s],{s,1,200},
 PlotRange->{0, All},
 PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
@@ -472,16 +545,16 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{20000,"20,000 "},{40000,"40,000 "},
 Export[StringJoin[generated,"weak_inc.pdf"],plt]
 
 
-FindRoot[fincidence[s]-100000,{s,50}]
+FindRoot[fincidence[s]-100000,{s,50}](*kihagyhat\[OAcute]*)
 
 
-FindRoot[fincidence[s]-100000,{s,75}]
+FindRoot[fincidence[s]-100000,{s,75}](*kihagyhat\[OAcute]*)
 
 
-NIntegrate[fincidence[s],{s,55,75}]
+NIntegrate[fincidence[s],{s,55,75}](*kihagyhat\[OAcute]*)
 
 
-Sum[fincidence[s],{s,55,75,1}]
+Sum[fincidence[s],{s,55,75,1}](*kihagyhat\[OAcute]*)
 
 
 (*Mortality*)
@@ -507,6 +580,9 @@ Filling->{
 {2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
 {1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
 FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, ImageSize->900]
+
+
+FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]
 
 
 Export[StringJoin[generated,"weak_mort.pdf"],plt]
@@ -541,7 +617,7 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},
 Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Moderate control (40% transmission reduction)*)
 
 
@@ -576,7 +652,7 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 Export[StringJoin[generated,"moderate_hosp.pdf"],plt]
 
 
-(*Epidemic curve*)
+(*Epidemic curve, kihagyhat\[OAcute]*)
 plt=Plot[
 {
 Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
@@ -596,7 +672,7 @@ FrameTicks->{{0, 60, 120, 180,240,300},{{50000,"50,000 "},{100000,"100,000 "},{1
 Export[StringJoin[generated,"moderate_epi.pdf"],plt]
 
 
-(*Epidemic curve*)
+(*Incidence*)
 plt=Plot[fincidence[s],{s,1,300},
 PlotRange->{0,All},
 PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
@@ -640,6 +716,9 @@ Filling->{
 FrameTicks->{{0, 60, 120, 180,240,300, 360},{{2000, "2,000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "},{10000,"10,000 "},{12000, "12,000 "}}}, ImageSize->900]
 
 
+FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]
+
+
 Export[StringJoin[generated,"moderate_mort.pdf"],plt]
 
 
@@ -673,7 +752,7 @@ FrameTicks->{{0, 60, 120, 180,240,300, 360},
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Strong control (50% transmission reduction)*)
 
 
@@ -771,6 +850,9 @@ Filling->{
 FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},ImageSize->900]
 
 
+FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]
+
+
 Export[StringJoin[generated,"strong_mort.pdf"],plt]
 
 
@@ -802,7 +884,7 @@ FrameTicks->{{0,120,240,360,480,600},{{300000,"300,000 "},{600000,"600,000 "},{9
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Age-specific analysis*)
 
 
@@ -1469,7 +1551,7 @@ FrameTicks->{{0,60,120,180,240},{{10000, "10,000 "},{20000, "20,000 "},{30000, "
 Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Sensitivity analysis (for generate plot, set Boolean to True!)*)
 
 
@@ -1530,7 +1612,7 @@ Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}]]
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Seasonality*)
 
 
@@ -1721,7 +1803,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Spatial heterogeneity*)
 
 
@@ -2092,11 +2174,11 @@ PlotLegends->Placed[{"uniform model\n(R = 1.6)","aggregated\ntwo-patch model", "
 Export[StringJoin[generated,"hetero_Pest_5k_may_mesasures_2.pdf"],plt]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*What if ... impact of implemented measures*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Initial values*)
 
 
@@ -2176,11 +2258,11 @@ ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],PlotStyle->{
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Technical appendix*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Contact matrix - heatmap*)
 
 
