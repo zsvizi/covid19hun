@@ -308,6 +308,12 @@ Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}](*calculation for Table 2*)
 
 
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}](*calculation for Table 2*)
+
+
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}](*calculation for Table 2*)
+
+
 R0=1.32;
 
 
@@ -339,6 +345,12 @@ Export[StringJoin[generated,"moderate_hosp.pdf"],plt]
 FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
 
 
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+
+
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}](*calculation for Table 2*)
+
+
 R0=1.1;
 
 
@@ -368,6 +380,9 @@ Export[StringJoin[generated,"strong_hosp.pdf"],plt]
 
 
 FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+
+
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
 
 
 R0=1.65;
@@ -530,6 +545,9 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},
 {{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}}, ImageSize->900]
 
 
+FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
 Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 
 
@@ -605,6 +623,9 @@ FrameTicks->{{0, 60, 120, 180,240,300, 360},
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 
 
+FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
 R0=1.1;
 
 
@@ -672,6 +693,9 @@ Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35
 {2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
 {1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
 FrameTicks->{{0,120,240,360,480,600},{{300000,"300,000 "},{600000,"600,000 "},{900000,"900,000 "},{1200000,"1.2 Mio. "},{2500000,"2.5 Million"}}},Background->White,ImageSize->900]
+
+
+FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
@@ -934,7 +958,7 @@ Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
 (*Sensitivity analysis (for generate plot, set Boolean to True!)*)
 
 
-runThisSection=True;
+runThisSection=False;
 
 
 R0=1.65;
