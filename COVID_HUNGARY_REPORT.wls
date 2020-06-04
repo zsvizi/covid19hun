@@ -501,8 +501,6 @@ PlotLabel->Style["Incidence"],
 AxesStyle->Directive[Thickness[0.005]],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
 PlotStyle->twoPlotsStyle,
-(*PlotLegends->Placed[LineLegend[{"Incidence","daily incidence"},LegendMarkerSize->{40,12},LegendMarkers -> 
-    Graphics[{AbsoluteThickness[3000],  Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],*)
 Background->White,
 FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "},{5000,"5,000 "},{6000,"6,000 "}}},  ImageSize->900]
 
@@ -567,7 +565,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}],*) AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
+AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
 Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
@@ -610,7 +608,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}],*) AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black,35],
+AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black,35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
 Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
@@ -642,7 +640,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}],*) AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black, 35],
+ AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black, 35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
 Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
@@ -653,7 +651,7 @@ Filling->{
 {2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
 {1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
 FrameTicks->{{0, 60, 120, 180,240,300, 360},
-{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}},Background->White,ImageSize->900]
+{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "}}},Background->White,ImageSize->900]
 
 
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
@@ -688,7 +686,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}],*) Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""}, LabelStyle->Directive[ Black,35],
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""}, LabelStyle->Directive[ Black,35],
 Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
 {6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
@@ -719,7 +717,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}]*)AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
+AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
 {6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
