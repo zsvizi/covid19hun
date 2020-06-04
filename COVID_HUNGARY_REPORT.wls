@@ -108,9 +108,6 @@ fPiScaled[[6]]*binAll[[10]]/sumAll+
 fPiScaled[[7]]*binAll[[11]]/sumAll
 
 
-(*fPiScaled*0.5/wsum*) (*\[EAcute]rt\[EAcute]kad\[AAcute]s n\[EAcute]lk\[UDoubleDot]li, nem plotol\[OAcute] cella, kihagyhat\[OAcute]*)
-
-
 (*Mild symptoms | Infection*)
 (*Based on  parametrization*)
 mildScaled={
@@ -138,9 +135,6 @@ asympPinf[[4]]*(binAll[[6]]+binAll[[7]]+binAll[[8]])/sumAll+
 asympPinf[[5]]*(binAll[[9]])/sumAll+
 asympPinf[[6]]*binAll[[10]]/sumAll+
 asympPinf[[7]]*binAll[[11]]/sumAll
-
-
-(*mildScaled*0.5/wsum2*) (*\[EAcute]rt\[EAcute]kad\[AAcute]s n\[EAcute]lk\[UDoubleDot]li, nem plotol\[OAcute] cella, kihagyhat\[OAcute]*)
 
 
 (* ::Section:: *)
@@ -278,6 +272,14 @@ ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"}
 (*Plots for Figure 6*)
 
 
+(* ::Subsubsection:: *)
+(*Plots for hospital bed need and ICU need*)
+
+
+(* ::Subsubsection:: *)
+(*R = 1.65 (25% contact reduction)*)
+
+
 R0=1.65;
 
 
@@ -305,13 +307,21 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000, "5,000 "},{10000, "10,000 "},
 Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 
 
-FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}](*calculation for Table 2*)
+(* ::Text:: *)
+(*Calculations for Table 2*)
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}](*calculation for Table 2*)
+FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}]
 
 
-FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}](*calculation for Table 2*)
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
+
+
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
+
+
+(* ::Subsubsection:: *)
+(*R = 1.32 (40 % contact reduction)*)
 
 
 R0=1.32;
@@ -333,8 +343,6 @@ LabelStyle->Directive[Black,35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
 PlotLabel->Style["Moderate control, R = 1.32\nTotal hospital bed and ICU need"],
 PlotStyle->twoPlotsStylehosp,
-(*PlotLegends->Placed[LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},LegendMarkerSize->{40,12},LegendMarkers -> 
-    Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.785, 0.6}],*)
 Background->White,
 FrameTicks->{{0, 60, 120,180,240,300},{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "}}},  ImageSize->900]
 
@@ -342,13 +350,21 @@ FrameTicks->{{0, 60, 120,180,240,300},{{1500," 1,500 "},{3000," 3,000 "},{4500,"
 Export[StringJoin[generated,"moderate_hosp.pdf"],plt]
 
 
-FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+(* ::Text:: *)
+(*Calculations for Table 2*)
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}](*calculation for Table 2*)
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
+
+
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
+
+
+(* ::Subsubsection:: *)
+(*R = 1.1 (50 % contact reduction)*)
 
 
 R0=1.1;
@@ -379,10 +395,18 @@ FrameTicks->{{0, 120, 240, 360, 480, 600},{{250, "250 "},{500, "500 "},{750, "75
 Export[StringJoin[generated,"strong_hosp.pdf"],plt]
 
 
-FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+(* ::Text:: *)
+(*Calculations for Table 2*)
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}](*calculation for Table 2*)
+FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
+
+
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
+
+
+(* ::Subsubsection:: *)
+(*Plots for incidence*)
 
 
 R0=1.65;
@@ -408,16 +432,24 @@ Background->White,
 FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{20000,"20,000 "},{40000,"40,000 "},{60000,"60,000 "},{80000,"80,000 "},{100000,"100,000 "},{120000,"120,000 "}}}, ImageSize->900]
 
 
-FindRoot[fincidence[s]-100000,{s,50}](*calculation for Chapter 2.4.2.*)
-
-
-FindRoot[fincidence[s]-100000,{s,75}](*calculation for Chapter 2.4.2.*)
-
-
-Sum[fincidence[s],{s,54,73,1}](*calculation for Chapter 2.4.2.*)
-
-
 Export[StringJoin[generated,"weak_inc.pdf"],plt]
+
+
+(* ::Text:: *)
+(*Calculations for Chapter 2.4.2*)
+
+
+FindRoot[fincidence[s]-100000,{s,50}]
+
+
+FindRoot[fincidence[s]-100000,{s,75}]
+
+
+Sum[fincidence[s],{s,54,73,1}]
+
+
+(* ::Subsubsection:: *)
+(*R = 1.32 (40 % contact reduction)*)
 
 
 R0=1.32;
@@ -444,6 +476,10 @@ FrameTicks->{{0, 60, 120, 180,240,300},{{10000,"10,000 "},{20000,"20,000 "},{300
 
 
 Export[StringJoin[generated,"moderate_inc.pdf"],plt]
+
+
+(* ::Subsubsection:: *)
+(*R = 1.1 (50 % contact reduction)*)
 
 
 R0=1.1;
@@ -500,7 +536,7 @@ PlotStyle->{
 {RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
 {RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
 {RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-(*PlotLegends->Placed[ageStructureLegend,{Right, Right}], *)AxesStyle->Directive[Thickness[0.005], Black, FontSize->35], LabelStyle->Directive[Black, 35],
+AxesStyle->Directive[Thickness[0.005], Black, FontSize->35], LabelStyle->Directive[Black, 35],
 Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
 Filling->{
 {7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
@@ -1211,6 +1247,10 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 (*Plots for Figure 11*)
 
 
+(* ::Subsubsection:: *)
+(*First scenario*)
+
+
 R0=1.32;
 
 
@@ -1218,10 +1258,9 @@ baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gam
 beta[t_]={baseBeta*contactMatrix};
 
 
-ageDistributionBpO={152071,273328,549435,1316738,360795,216668,125293};
-ageDistributioncountrysideO={308442,673820,1107068,2748640,896129,616662,310281};
-ageDistributionBp = ageDistribution - ageDistributioncountrysideO;
-ageDistributioncountryside = ageDistributioncountrysideO;
+ageDistributionotherO={308442,673820,1107068,2748640,896129,616662,310281};
+ageDistributionBp = ageDistribution - ageDistributionotherO;
+ageDistributionother = ageDistributionotherO;
 sol1patch=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr,ageDistribution, mu, ksi, asymp, pA, h];
 
 
@@ -1234,7 +1273,7 @@ patch=2;
 nAge=Length[ageDistributionBp];
 
 
-ageDistributionpatch={ageDistributionBp,ageDistributioncountryside}; (*special for 2-patch model*)
+ageDistributionpatch={ageDistributionBp,ageDistributionother}; (*special for 2-patch model*)
 popPatch=Table[Total[ageDistributionpatch[[p1]]],{p1,1,patch}];
 
 
@@ -1257,77 +1296,37 @@ asymp=relInfectA;
 
 
 R0Bp=1.32;
-R0Countryside=1.32;
+R0other=1.32;
 
 
 baseBetaBp=NGM[contactMatrix, R0Bp, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-baseBetaCountryside=NGM[contactMatrix, R0Countryside, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+baseBetaother=NGM[contactMatrix, R0other, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
 
 
-beta[t_]={baseBetaBp*contactMatrix, baseBetaCountryside*contactMatrix}; (*special for 2-patch model*)
+beta[t_]={baseBetaBp*contactMatrix, baseBetaother*contactMatrix}; (*special for 2-patch model*)
 
 
-initpest = initialValuesImod*0.55;
-transposepest = Transpose[initpest];
-initCountryside = initialValuesImod*0.45;
-transposeCountryside = Transpose[initCountryside];
+initBp = initialValuesImod*0.55;
+transposeBp = Transpose[initBp];
+initother = initialValuesImod*0.45;
+transposeother = Transpose[initother];
 
 
-l10Bp=transposepest[[2]];
-l10Countryside=transposeCountryside[[2]];
-
-l20Bp=transposepest[[3]];
-l20Countryside=transposeCountryside[[3]];
-
-ip0Bp=transposepest[[4]];
-ip0Countryside = transposeCountryside[[4]];
-
-ia10Bp=transposepest[[5]];
-ia10Countryside=transposeCountryside[[5]];
-
-ia20Bp=transposepest[[6]];
-ia20Countryside=transposeCountryside[[6]];
-
-ia30Bp=transposepest[[7]];
-ia30Countryside=transposeCountryside[[7]];
-
-is10Bp=transposepest[[8]];
-is10Countryside=transposeCountryside[[8]];
-
-is20Bp=transposepest[[9]];
-is20Countryside=transposeCountryside[[9]];
-
-is30Bp=transposepest[[10]];
-is30Countryside=transposeCountryside[[10]];
-
-ih0Bp=transposepest[[11]];
-ih0Countryside=transposeCountryside[[11]];
-
-ic0Bp=transposepest[[12]];
-ic0Countryside=transposeCountryside[[12]];
-
-icr0Bp=transposepest[[13]];
-icr0Countryside=transposeCountryside[[13]];
-
-r0Bp=transposepest[[14]];
-r0Countryside=transposeCountryside[[14]];
-
-d0Bp=transposepest[[15]];
-d0Countryside=transposeCountryside[[15]];
-
-c0Bp=transposepest[[16]];
-c0Countryside=transposeCountryside[[16]];
-
-s0Bp=ageDistributionBp-Sum[transposepest[[i]],{i,2,15}];
-s0Countryside=ageDistributioncountryside-Sum[transposeCountryside[[i]],{i,2,15}];
-
-initBp=Transpose[{s0Bp,l10Bp,l20Bp,ip0Bp,ia10Bp,ia20Bp,ia30Bp,is10Bp,is20Bp,is30Bp,ih0Bp,ic0Bp,icr0Bp,r0Bp,d0Bp,c0Bp}];
-initCountryside=Transpose[{s0Countryside,l10Countryside,l20Countryside,ip0Countryside,ia10Countryside,ia20Countryside,ia30Countryside,is10Countryside,is20Countryside,is30Countryside,ih0Countryside,ic0Countryside,icr0Countryside,r0Countryside,d0Countryside,c0Countryside}];
-initPatch={initBp,initCountryside};
+{s0Bp, l10Bp, l20Bp,ip0Bp, ia10Bp, ia20Bp, ia30Bp, is10Bp, is20Bp, is30Bp, ih0Bp, ic0Bp, icr0Bp, r0Bp, d0Bp, c0Bp} = Table[initValue, {initValue,transposeBp}];
 
 
-travelBpCountryside=4*84789;
-travel=Table[Which[p1==p2,0,True,travelBpCountryside/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
+{s0other, l10other, l20other,ip0other, ia10other, ia20other, ia30other, is10other, is20other, is30other, ih0other, ic0other, icr0other, r0other, d0other, c0other} = Table[initValue, {initValue,transposeother}];
+
+
+s0Bp=ageDistributionBp-Sum[transposeBp[[i]],{i,2,15}];
+s0other=ageDistributionother-Sum[transposeother[[i]],{i,2,15}];
+initBudapest=Transpose[{s0Bp,l10Bp,l20Bp,ip0Bp,ia10Bp,ia20Bp,ia30Bp,is10Bp,is20Bp,is30Bp,ih0Bp,ic0Bp,icr0Bp,r0Bp,d0Bp,c0Bp}];
+initother=Transpose[{s0other,l10other,l20other,ip0other,ia10other,ia20other,ia30other,is10other,is20other,is30other,ih0other,ic0other,icr0other,r0other,d0other,c0other}];
+initPatch={initBudapest,initother};
+
+
+travelBpother=400000;
+travel=Table[Which[p1==p2,0,True,travelBpother/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
 
 
 sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
@@ -1352,139 +1351,28 @@ PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.254901960784313
 {Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
 {Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
 ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "},{250000,"250,000 "},{300000,"300,000 "},{350000,"350,000 "},{5000000,"5 Million "},{6000000,"6 Million"},{7000000,"7 Million"}}},Background->White]
+{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-R0=1.32;
+(* ::Subsubsection:: *)
+(*Second scenario*)
 
 
-baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-beta[t_]={baseBeta*contactMatrix};
+travelBpother=10000;
+travel=Table[Which[p1==p2,0,True,travelBpother/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
 
 
-ageDistributionBpO={152071,273328,549435,1316738,360795,216668,125293};
-ageDistributioncountrysideO={308442,673820,1107068,2748640,896129,616662,310281};
-ageDistributionBp = ageDistribution - ageDistributioncountrysideO;
-ageDistributioncountryside = ageDistributioncountrysideO;
-sol1patch=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr,ageDistribution, mu, ksi, asymp, pA, h];
+solequalR10k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
 
 
-sumOfI1patch[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.sol1patch];
-
-
-patch=2;
-
-
-nAge=Length[ageDistributionBp];
-
-
-ageDistributionpatch={ageDistributionBp,ageDistributioncountryside}; (*special for 2-patch model*)
-popPatch=Table[Total[ageDistributionpatch[[p1]]],{p1,1,patch}];
-
-
-contactMatrix=aggregatePREM[contactPREM];
-
-
-alpha=Table[1/latentPeriod,{i,1,7}];
-alpha2=Table[1/preSympInfPeriod,{i,1,7}];
-gammaa=Table[1/infectPeriodA,{i,1,7}];
-gammas=Table[1/infectPeriodS,{i,1,7}];
-
-
-gammah=Table[1/infectPeriodH,{i,1,7}];
-gammac=Table[1/infectPeriodC,{i,1,7}];
-gammacr=Table[1/infectPeriodCR,{i,1,7}];
-
-
-ksi=xi;
-asymp=relInfectA;
-
-
-R0Bp=1.32;
-R0Countryside=1.32;
-
-
-baseBetaBp=NGM[contactMatrix, R0Bp, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-baseBetaCountryside=NGM[contactMatrix, R0Countryside, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-
-
-beta[t_]={baseBetaBp*contactMatrix, baseBetaCountryside*contactMatrix}; (*special for 2-patch model*)
-
-
-initpest = initialValuesImod*0.55;
-transposepest = Transpose[initpest];
-initCountryside = initialValuesImod*0.45;
-transposeCountryside = Transpose[initCountryside];
-
-
-l10Bp=transposepest[[2]];
-l10Countryside=transposeCountryside[[2]];
-
-l20Bp=transposepest[[3]];
-l20Countryside=transposeCountryside[[3]];
-
-ip0Bp=transposepest[[4]];
-ip0Countryside = transposeCountryside[[4]];
-
-ia10Bp=transposepest[[5]];
-ia10Countryside=transposeCountryside[[5]];
-
-ia20Bp=transposepest[[6]];
-ia20Countryside=transposeCountryside[[6]];
-
-ia30Bp=transposepest[[7]];
-ia30Countryside=transposeCountryside[[7]];
-
-is10Bp=transposepest[[8]];
-is10Countryside=transposeCountryside[[8]];
-
-is20Bp=transposepest[[9]];
-is20Countryside=transposeCountryside[[9]];
-
-is30Bp=transposepest[[10]];
-is30Countryside=transposeCountryside[[10]];
-
-ih0Bp=transposepest[[11]];
-ih0Countryside=transposeCountryside[[11]];
-
-ic0Bp=transposepest[[12]];
-ic0Countryside=transposeCountryside[[12]];
-
-icr0Bp=transposepest[[13]];
-icr0Countryside=transposeCountryside[[13]];
-
-r0Bp=transposepest[[14]];
-r0Countryside=transposeCountryside[[14]];
-
-d0Bp=transposepest[[15]];
-d0Countryside=transposeCountryside[[15]];
-
-c0Bp=transposepest[[16]];
-c0Countryside=transposeCountryside[[16]];
-
-s0Bp=ageDistributionBp-Sum[transposepest[[i]],{i,2,15}];
-s0Countryside=ageDistributioncountryside-Sum[transposeCountryside[[i]],{i,2,15}];
-
-initBp=Transpose[{s0Bp,l10Bp,l20Bp,ip0Bp,ia10Bp,ia20Bp,ia30Bp,is10Bp,is20Bp,is30Bp,ih0Bp,ic0Bp,icr0Bp,r0Bp,d0Bp,c0Bp}];
-initCountryside=Transpose[{s0Countryside,l10Countryside,l20Countryside,ip0Countryside,ia10Countryside,ia20Countryside,ia30Countryside,is10Countryside,is20Countryside,is30Countryside,ih0Countryside,ic0Countryside,icr0Countryside,r0Countryside,d0Countryside,c0Countryside}];
-initPatch={initBp,initCountryside};
-
-
-travelBpCountryside=4*84789/(4*10);
-travel=Table[Which[p1==p2,0,True,travelBpCountryside/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
-
-
-sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
-
-
-sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
+sumOfIequalR10k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.solequalR10k];
 
 
 plt=Plot[{
 sumOfI1patch[t],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.solequalR10k],
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},
 {t,0,250},
 PlotRange->{0, All},
 PlotLabel->Style[""],
@@ -1496,139 +1384,39 @@ PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.254901960784313
 {Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
 {Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
 ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "},{250000,"250,000 "},{300000,"300,000 "},{350000,"350,000 "},{5000000,"5 Million "},{6000000,"6 Million"},{7000000,"7 Million"}}},Background->White]
+{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-R0=1.32;
-
-
-baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-beta[t_]={baseBeta*contactMatrix};
-
-
-ageDistributionBpO={152071,273328,549435,1316738,360795,216668,125293};
-ageDistributioncountrysideO={308442,673820,1107068,2748640,896129,616662,310281};
-ageDistributionBp = ageDistribution - ageDistributioncountrysideO;
-ageDistributioncountryside = ageDistributioncountrysideO;
-sol1patch=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr,ageDistribution, mu, ksi, asymp, pA, h];
-
-
-sumOfI1patch[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.sol1patch];
-
-
-patch=2;
-
-
-nAge=Length[ageDistributionBp];
-
-
-ageDistributionpatch={ageDistributionBp,ageDistributioncountryside}; (*special for 2-patch model*)
-popPatch=Table[Total[ageDistributionpatch[[p1]]],{p1,1,patch}];
-
-
-contactMatrix=aggregatePREM[contactPREM];
-
-
-alpha=Table[1/latentPeriod,{i,1,7}];
-alpha2=Table[1/preSympInfPeriod,{i,1,7}];
-gammaa=Table[1/infectPeriodA,{i,1,7}];
-gammas=Table[1/infectPeriodS,{i,1,7}];
-
-
-gammah=Table[1/infectPeriodH,{i,1,7}];
-gammac=Table[1/infectPeriodC,{i,1,7}];
-gammacr=Table[1/infectPeriodCR,{i,1,7}];
-
-
-ksi=xi;
-asymp=relInfectA;
+(* ::Subsubsection:: *)
+(*Third scenario*)
 
 
 R0Bp=1.47;
-R0Countryside=1.25;
+R0other=1.25;
 
 
 baseBetaBp=NGM[contactMatrix, R0Bp, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-baseBetaCountryside=NGM[contactMatrix, R0Countryside, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+baseBetaother=NGM[contactMatrix, R0other, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
 
 
-beta[t_]={baseBetaBp*contactMatrix, baseBetaCountryside*contactMatrix}; (*special for 2-patch model*)
+beta[t_]={baseBetaBp*contactMatrix, baseBetaother*contactMatrix}; (*special for 2-patch model*)
 
 
-initpest = initialValuesImod*0.55;
-transposepest = Transpose[initpest];
-initCountryside = initialValuesImod*0.45;
-transposeCountryside = Transpose[initCountryside];
+travelBpother=10000;
+travel=Table[Which[p1==p2,0,True,travelBpother/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
 
 
-l10Bp=transposepest[[2]];
-l10Countryside=transposeCountryside[[2]];
-
-l20Bp=transposepest[[3]];
-l20Countryside=transposeCountryside[[3]];
-
-ip0Bp=transposepest[[4]];
-ip0Countryside = transposeCountryside[[4]];
-
-ia10Bp=transposepest[[5]];
-ia10Countryside=transposeCountryside[[5]];
-
-ia20Bp=transposepest[[6]];
-ia20Countryside=transposeCountryside[[6]];
-
-ia30Bp=transposepest[[7]];
-ia30Countryside=transposeCountryside[[7]];
-
-is10Bp=transposepest[[8]];
-is10Countryside=transposeCountryside[[8]];
-
-is20Bp=transposepest[[9]];
-is20Countryside=transposeCountryside[[9]];
-
-is30Bp=transposepest[[10]];
-is30Countryside=transposeCountryside[[10]];
-
-ih0Bp=transposepest[[11]];
-ih0Countryside=transposeCountryside[[11]];
-
-ic0Bp=transposepest[[12]];
-ic0Countryside=transposeCountryside[[12]];
-
-icr0Bp=transposepest[[13]];
-icr0Countryside=transposeCountryside[[13]];
-
-r0Bp=transposepest[[14]];
-r0Countryside=transposeCountryside[[14]];
-
-d0Bp=transposepest[[15]];
-d0Countryside=transposeCountryside[[15]];
-
-c0Bp=transposepest[[16]];
-c0Countryside=transposeCountryside[[16]];
-
-s0Bp=ageDistributionBp-Sum[transposepest[[i]],{i,2,15}];
-s0Countryside=ageDistributioncountryside-Sum[transposeCountryside[[i]],{i,2,15}];
-
-initBp=Transpose[{s0Bp,l10Bp,l20Bp,ip0Bp,ia10Bp,ia20Bp,ia30Bp,is10Bp,is20Bp,is30Bp,ih0Bp,ic0Bp,icr0Bp,r0Bp,d0Bp,c0Bp}];
-initCountryside=Transpose[{s0Countryside,l10Countryside,l20Countryside,ip0Countryside,ia10Countryside,ia20Countryside,ia30Countryside,is10Countryside,is20Countryside,is30Countryside,ih0Countryside,ic0Countryside,icr0Countryside,r0Countryside,d0Countryside,c0Countryside}];
-initPatch={initBp,initCountryside};
+soldifferentR10k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
 
 
-travelBpCountryside=4*84789/(4*10);
-travel=Table[Which[p1==p2,0,True,travelBpCountryside/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
-
-
-sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
-
-
-sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
+sumOfIdifferentR10k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.soldifferentR10k];
 
 
 plt=Plot[{
 sumOfI1patch[t],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.soldifferentR10k],
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
+Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},
 {t,0,250},
 PlotRange->{0, All},
 PlotLabel->Style[""],
@@ -1640,7 +1428,7 @@ PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.254901960784313
 {Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
 {Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
 ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "},{250000,"250,000 "},{300000,"300,000 "},{350000,"350,000 "},{5000000,"5 Million "},{6000000,"6 Million"},{7000000,"7 Million"}}},Background->White]
+{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
 (* ::Section:: *)
@@ -1735,18 +1523,13 @@ Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 (*Contact matrix - heatmap*)
 
 
-a = ColorData[{"ValentineTones", "Reverse"}];
+a=ColorData[{"ValentineTones", "Reverse"}];
 
 
-b=	Function[
-	x, (
-		x; 
-		x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])
-		)
-	];
+b=Function[x, (x; x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix]))];
 
 
-c = Function[x, a[b[x]]];
+c=Function[x, a[b[x]]];
 
 
 contactMatrix = {{2.85265757236992`,1.0168035823185497`,0.9685513913908559`,3.6394710640997423`,0.7636165091831196`,0.26465811449632815`,0.16478042597673156`},{0.4920476243619219`,5.5591531856025815`,1.3504814369626075`,4.594274005138205`,0.7201168699258064`,0.5079625876327662`,0.2712341242084005`},{0.27685605410253394`,0.7977189385389726`,6.219897755428148`,6.522055041065205`,0.6110526839596531`,0.3066735514563918`,0.14958519657799538`},{0.4176563153332957`,1.0895009251108805`,2.618387301006593`,5.4218448320596275`,0.9159669127390052`,0.43426172617935965`,0.19979273798286082`},{0.26756270229416934`,0.5214145882147075`,0.7490271587498547`,2.7967218055259924`,1.6643410756692467`,0.6027761432448209`,0.17003271688765734`},{0.13848711461847765`,0.5492699095199908`,0.5613957491247491`,1.9801355696025458`,0.9001812106572092`,0.7311654280330745`,0.1455885636741889`},{0.16475717166363135`,0.5604191442260885`,0.5232340130971493`,1.7407548882408745`,0.4852001613787113`,0.2781901927944575`,0.5505304214784429`}};
@@ -1763,17 +1546,7 @@ AgelabelsH=Thread[{Range[7], {labelfuncH["0-4 "], labelfuncH["5-14 "], labelfunc
 AgelabelsV=Thread[{Range[7], {labelfuncV["0-4"], labelfuncV["5-14"], labelfuncV["15-29"], labelfuncV["30-59"], labelfuncV["60-69"], labelfuncV["70-79"], labelfuncV["80-    "]}}];
 
 
-cntxmatrixplot = Labeled[MatrixPlot[Transpose[contactMatrix], ColorFunction->
-	Function[
-	x, (
-		x; 
-		a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];
-		)
-	], ColorFunctionScaling->False, PlotLegends -> Automatic, DataReversed -> True, FrameTicks->{AgelabelsV, AgelabelsH}, ImageSize->Scaled[.3]], {Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]}, {Left, Bottom}, Spacings->{2, 1}]
-(* Export["contactMatrixHeatMap.png",cntxmatrixplot] *)
+cntxmatrixplot = Labeled[MatrixPlot[Transpose[contactMatrix], ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)], ColorFunctionScaling->False, PlotLegends -> Automatic, DataReversed -> True, FrameTicks->{AgelabelsV, AgelabelsH}, ImageSize->Scaled[.3]], {Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]}, {Left, Bottom}, Spacings->{2, 1}]
 
 
 Export[StringJoin[generated,"contactMatrix_heatMap.pdf"],cntxmatrixplot];
-
-
-
