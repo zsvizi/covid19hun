@@ -11,133 +11,7 @@ If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[Str
 generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
-(* ::Section:: *)
-(*Preliminary calculations*)
-
-
-ifr={0.002, 0.006, 0.03, 0.08, 0.15, 0.6, 2.2, 5.1, 9.3}; (*Ferguson*)
-hh={0.03, 0.03, 0.39, 1.45, 2.55, 4.95, 7.75, 17.88, 32.97}; (*McCaw*)
-icu={0.01, 0.01, 0.11, 0.43, 0.75, 1.45, 2.27, 5.25, 9.68}; (*McCaw*)
-hPs={0.1, 0.3, 1.2, 3.2, 4.9, 10.2, 16.6, 24.3, 27.3}; (*Ferguson*)
-iPh={5.0, 5.0, 5.0, 5.0, 6.3, 12.2, 27.4, 43.2, 70.9}; (*Ferguson*)
-asympPinf={0.95, 0.95,0.90,0.8,0.7,0.6,0.4,0.2,0.2}; (**)
-icuPhosp=icu/hh; (*McCaw - derived*)
-fPicu=(ifr/100)/((hPs/100)*(iPh/100)) (*Ferguson - derived*)
-
-
-binAll={Sum[population1Y[[i]],{i,1,5}], (*0-4*)
-Sum[population1Y[[i]],{i,6,10}], (*5-9*)
-Sum[population1Y[[i]],{i,11,15}], (*10-14*)
-Sum[population1Y[[i]],{i,16,20}], (*15-19*)
-Sum[population1Y[[i]],{i,21,30}], (*20-29*)
-Sum[population1Y[[i]],{i,31,40}], (*30-39*)
-Sum[population1Y[[i]],{i,41,50}], (*40-49*)
-Sum[population1Y[[i]],{i,51,60}], (*50-59*)
-Sum[population1Y[[i]],{i,61,70}], (*60-69*)
-Sum[population1Y[[i]],{i,71,80}], (*70-79*)
-Sum[population1Y[[i]],{i,81,Length[population1Y]}]} (*80+ *)
-sumAll=Sum[binAll[[i]],{i,1,Length[binAll]}];
-
-
-Total[{453441,445730,491294,477228,1109087,1204662,1538794,1207844,1294108,866556,453505}]
-
-
-(*ICU | Hospitalization*)
-(*Based on McCaw parametrization*)
-{
-icuPhosp[[1]], (*0-4*)
-
-icuPhosp[[1]] * binAll[[2]]/(binAll[[2]]+binAll[[3]]) + icuPhosp[[2]] * binAll[[3]]/(binAll[[2]]+binAll[[3]]), (*5-14*)
-
-icuPhosp[[2]] * binAll[[4]]/(binAll[[4]]+binAll[[5]]) + icuPhosp[[3]] * binAll[[5]]/(binAll[[4]]+binAll[[5]]),(*15-29*)
-
-icuPhosp[[4]] * binAll[[6]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + icuPhosp[[5]] * binAll[[7]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + icuPhosp[[6]] * binAll[[8]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]), (*30-59*)
-
-icuPhosp[[7]], (*60-69*)
-
-icuPhosp[[8]], (*70-79*)
-
-icuPhosp[[9]] (*80+*)
-}
-
-
-(*Hospitalization | Symptoms*)
-(*Based on McCaw parametrization*)
-{
-hh[[1]], (*0-4*)
-
-hh[[1]] * binAll[[2]]/(binAll[[2]]+binAll[[3]]) + hh[[2]] * binAll[[3]]/(binAll[[2]]+binAll[[3]]), (*5-14*)
-
-hh[[2]] * binAll[[4]]/(binAll[[4]]+binAll[[5]]) + hh[[3]] * binAll[[5]]/(binAll[[4]]+binAll[[5]]),(*15-29*)
-
-hh[[4]] * binAll[[6]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + hh[[5]] * binAll[[7]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + hh[[6]] * binAll[[8]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]), (*30-59*)
-
-hh[[7]], (*60-69*)
-
-hh[[8]], (*70-79*)
-
-hh[[9]] (*80+*)
-}/100
-
-
-(*Fatal | ICU - temporal, scaled*)
-(*Based on Ferguson parametrization*)
-fPiScaled={
-fPicu[[1]], (*0-4*)
-
-fPicu[[1]] * binAll[[2]]/(binAll[[2]]+binAll[[3]]) + fPicu[[2]] * binAll[[3]]/(binAll[[2]]+binAll[[3]]), (*5-14*)
-
-fPicu[[2]] * binAll[[4]]/(binAll[[4]]+binAll[[5]]) + fPicu[[3]] * binAll[[5]]/(binAll[[4]]+binAll[[5]]),(*15-29*)
-
-fPicu[[4]] * binAll[[6]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + fPicu[[5]] * binAll[[7]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + fPicu[[6]] * binAll[[8]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]), (*30-59*)
-
-fPicu[[7]], (*60-69*)
-
-fPicu[[8]], (*70-79*)
-
-fPicu[[9]] (*80+*)
-}
-
-
-wsum=fPiScaled[[1]]*binAll[[1]]/sumAll+
-fPiScaled[[2]]*(binAll[[2]]+binAll[[3]])/sumAll+
-fPiScaled[[3]]*(binAll[[4]]+binAll[[5]])/sumAll+
-fPiScaled[[4]]*(binAll[[6]]+binAll[[7]]+binAll[[8]])/sumAll+
-fPiScaled[[5]]*(binAll[[9]])/sumAll+
-fPiScaled[[6]]*binAll[[10]]/sumAll+
-fPiScaled[[7]]*binAll[[11]]/sumAll
-
-
-(*Mild symptoms | Infection*)
-(*Based on  parametrization*)
-mildScaled={
-asympPinf[[1]], (*0-4*)
-
-asympPinf[[1]] * binAll[[2]]/(binAll[[2]]+binAll[[3]]) + asympPinf[[2]] * binAll[[3]]/(binAll[[2]]+binAll[[3]]), (*5-14*)
-
-asympPinf[[2]] * binAll[[4]]/(binAll[[4]]+binAll[[5]]) + asympPinf[[3]] * binAll[[5]]/(binAll[[4]]+binAll[[5]]),(*15-29*)
-
-asympPinf[[4]] * binAll[[6]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + asympPinf[[5]] * binAll[[7]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]) + asympPinf[[6]] * binAll[[8]]/(binAll[[6]]+binAll[[7]]+binAll[[8]]), (*30-59*)
-
-asympPinf[[7]], (*60-69*)
-
-asympPinf[[8]], (*70-79*)
-
-asympPinf[[9]] (*80+*)
-}
-
-
-wsum2=
-asympPinf[[1]]*binAll[[1]]/sumAll+
-asympPinf[[2]]*(binAll[[2]]+binAll[[3]])/sumAll+
-asympPinf[[3]]*(binAll[[4]]+binAll[[5]])/sumAll+
-asympPinf[[4]]*(binAll[[6]]+binAll[[7]]+binAll[[8]])/sumAll+
-asympPinf[[5]]*(binAll[[9]])/sumAll+
-asympPinf[[6]]*binAll[[10]]/sumAll+
-asympPinf[[7]]*binAll[[11]]/sumAll
-
-
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Initialization*)
 
 
@@ -197,6 +71,10 @@ init=Transpose[{s0,l10,l20,ip0,ia10,ia20,ia30,is10,is20,is30,ih0,ic0,icr0,r0,d0,
 sol=modelSolver[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
+(* ::Subsubsection:: *)
+(*Functions*)
+
+
 sumOfI[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.sol];
 
 
@@ -209,13 +87,18 @@ fhosp[t_]:=Evaluate[Sum[ih[i][t],{i,1,nAge}]/.sol];
 fincidence[s_]:=Evaluate[(Sum[c[i][t],{i,1,nAge}]/.sol)/.t->(s+1)]-Evaluate[(Sum[c[i][t],{i,1,nAge}]/.sol)/.t->s];
 
 
+mortalityCumulative=Table[Sum[d[j][t],{j,1,i}],{i,1,nAge}];
+cumulative=Table[Sum[c[j][t],{j,1,i}],{i,1,nAge}];
+
+
 t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
 
 
 die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
 
 
-hosp0=t/.FindRoot[fhosp[t]==200,{t,150}][[1]]
+(* ::Subsubsection:: *)
+(*Finalizing the initial values*)
 
 
 initialValuesImod=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->die0,2]
@@ -234,18 +117,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Subsubsection:: *)
-(*Functions*)
-
-
-mortalityCumulative=Table[Sum[d[j][t],{j,1,i}],{i,1,nAge}];
-cumulative=Table[Sum[c[j][t],{j,1,i}],{i,1,nAge}];
-
-
-sumOfI[t_]:=Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.sol];
-
-
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -273,11 +145,7 @@ ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"}
 
 
 (* ::Subsubsection:: *)
-(*Plots for hospital bed need and ICU need*)
-
-
-(* ::Subsubsection:: *)
-(*R = 1.65 (25% contact reduction)*)
+(*R = 1.65*)
 
 
 R0=1.65;
@@ -321,7 +189,7 @@ FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
 
 
 (* ::Subsubsection:: *)
-(*R = 1.32 (40 % contact reduction)*)
+(*R = 1.32*)
 
 
 R0=1.32;
@@ -357,14 +225,14 @@ Export[StringJoin[generated,"moderate_hosp.pdf"],plt]
 FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 
 
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
 (* ::Subsubsection:: *)
-(*R = 1.1 (50 % contact reduction)*)
+(*R = 1.1*)
 
 
 R0=1.1;
@@ -409,6 +277,10 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
 (*Plots for incidence*)
 
 
+(* ::Subsubsection:: *)
+(*R = 1.65*)
+
+
 R0=1.65;
 
 
@@ -449,7 +321,7 @@ Sum[fincidence[s],{s,54,73,1}]
 
 
 (* ::Subsubsection:: *)
-(*R = 1.32 (40 % contact reduction)*)
+(*R = 1.32*)
 
 
 R0=1.32;
@@ -479,7 +351,7 @@ Export[StringJoin[generated,"moderate_inc.pdf"],plt]
 
 
 (* ::Subsubsection:: *)
-(*R = 1.1 (50 % contact reduction)*)
+(*R = 1.1*)
 
 
 R0=1.1;
@@ -512,6 +384,10 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*Plots for Figure 7*)
 
 
+(* ::Subsubsection:: *)
+(*R = 1.65*)
+
+
 R0=1.65;
 
 
@@ -520,6 +396,10 @@ beta[t_]={baseBeta*contactMatrix};
 
 
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+(* ::Subsubsection:: *)
+(*Mortality*)
 
 
 (*Mortality*)
@@ -547,13 +427,20 @@ Filling->{
 FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, ImageSize->900]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
 Export[StringJoin[generated,"weak_mort.pdf"],plt]
 
 
-(*Cumulative*)
+(* ::Subsubsection:: *)
+(*Recovered*)
+
+
 plt=Plot[Evaluate[cumulative/.sol],{t,0,200},
 PlotRange->{0,All},
 PlotLabel->Style["Recovered\nR=1.65"],
@@ -579,10 +466,18 @@ FrameTicks->{{0, 30, 60, 90, 120, 150,180},
 {{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}}, ImageSize->900]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
 Export[StringJoin[generated,"weak_cumu.pdf"],plt]
+
+
+(* ::Subsubsection:: *)
+(*R = 1.32*)
 
 
 R0=1.32;
@@ -595,7 +490,10 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
+(* ::Subsubsection:: *)
 (*Mortality*)
+
+
 plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,360},
 PlotRange->{0,All},
 PlotLabel->Style["Mortality\nR=1.32"],
@@ -621,13 +519,20 @@ Filling->{
 FrameTicks->{{0, 60, 120, 180,240,300, 360},{{2000, "2,000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "},{10000,"10,000 "},{12000, "12,000 "}}}, ImageSize->900]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
 Export[StringJoin[generated,"moderate_mort.pdf"],plt]
 
 
-(*Cumulative*)
+(* ::Subsubsection:: *)
+(*Recovered*)
+
+
 plt=Plot[Evaluate[cumulative/.sol],{t,0,360},
 PlotRange->{0,All},
 PlotLabel->Style["Recovered\nR=1.32"],
@@ -657,7 +562,15 @@ FrameTicks->{{0, 60, 120, 180,240,300, 360},
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
+(* ::Subsubsection:: *)
+(*R = 1.1*)
 
 
 R0=1.1;
@@ -673,7 +586,10 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 Export[StringJoin[generated,"strong_epi.pdf"],plt]
 
 
+(* ::Subsubsection:: *)
 (*Mortality*)
+
+
 plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,630},
 PlotRange->{0,All},
 PlotLabel->Style["Mortality\nR=1.1"],
@@ -698,13 +614,20 @@ Filling->{
 FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},ImageSize->900]
 
 
-FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
+FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 
 
 Export[StringJoin[generated,"strong_mort.pdf"],plt]
 
 
-(*Cumulative*)
+(* ::Subsubsection:: *)
+(*Recovered*)
+
+
 plt=Plot[Evaluate[cumulative/.sol],{t,0,630},
 PlotRange->{0,All},
 PlotLabel->Style["Recovered\nR=1.1"],
@@ -729,13 +652,17 @@ Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35
 FrameTicks->{{0,120,240,360,480,600},{{300000,"300,000 "},{600000,"600,000 "},{900000,"900,000 "},{1200000,"1.2 Mio. "},{2500000,"2.5 Million"}}},Background->White,ImageSize->900]
 
 
-FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+(* ::Subsubsection:: *)
+(*Calculation for Table 2*)
+
+
+FindMaximum[cumulative[[7]]/.sol,{t,70}]//Quiet
 
 
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Age-specific analysis*)
 
 
@@ -756,6 +683,10 @@ contactMatrixSchool=aggregatePREM[contactMatrixPREMSchool];
 
 (* ::Subsubsection:: *)
 (*Plots for Figure 8*)
+
+
+(* ::Subsubsection:: *)
+(*Hospital bed needs*)
 
 
 R0=1.65;
@@ -786,15 +717,23 @@ FrameTicks->{
 {{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
-FindMaximum[
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],{t,100}](*calculation for impact of school closures*)
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact *)
 
 
 FindMaximum[
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact of school closures*)
+Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],{t,100}]
+
+
+FindMaximum[
+Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
 Export[StringJoin[generated,"school_hosp_1.65.pdf"],plt]
+
+
+(* ::Subsubsection:: *)
+(*ICU needs*)
 
 
 plt=Plot[
@@ -811,6 +750,10 @@ PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,FrameTicks->{
 {{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact *)
+
+
 FindMaximum[
 Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol],{t,60}](*calculation for impact of school closures*)
 
@@ -822,6 +765,10 @@ Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact o
 Export[StringJoin[generated,"school_icu_1.65.pdf"],plt]
 
 
+(* ::Subsubsection:: *)
+(*Mortality*)
+
+
 plt=Plot[{Evaluate[Total[mortalityCumulative[[7]]]/.sol],Evaluate[Total[mortalityCumulative[[7]]]/.solschool]},{t,0,250},
 PlotRange->{0,All},
 PlotStyle->twoPlotsStyle,
@@ -831,6 +778,10 @@ PlotLabel->Style["Mortality"], Background->White,
 FrameLabel->{"days since release",""}, ImageSize -> 900,
 PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 FrameTicks->{{0,60,120,180,240, 300, 360, 420, 480},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "}}}]
+
+
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact *)
 
 
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of measure*)
@@ -885,7 +836,7 @@ solElderlyFull=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gamma
 
 
 (* ::Subsubsection:: *)
-(*Plots: ICU*)
+(*Hospital bed needs*)
 
 
 plt=Plot[
@@ -908,19 +859,27 @@ FrameTicks->{
 {{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
-FindMaximum[
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],{t,60}](*calculation for impact of measure*)
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact*)
 
 
 FindMaximum[
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyModerate],{t,60}](*calculation for impact of measure*)
+Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],{t,60}]//Quiet
 
 
 FindMaximum[
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}](*calculation for impact of measure*)
+Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyModerate],{t,60}]//Quiet
+
+
+FindMaximum[
+Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
 Export[StringJoin[generated,"elderly_total_hosp_1.65.pdf"],plt]
+
+
+(* ::Subsubsection:: *)
+(*ICU needs*)
 
 
 plt=Plot[
@@ -943,23 +902,27 @@ FrameTicks->{
 {{1500, "1,500 "},{3000, "3,000 "},{4500, "4,500 "},{6000, " 6,000 "}}}]
 
 
-FindMaximum[
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol],{t,60}](*calculation for impact of measure*)
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact*)
 
 
 FindMaximum[
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyModerate],{t,60}](*calculation for impact of measure*)
+Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol],{t,60}]//Quiet
 
 
 FindMaximum[
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}](*calculation for impact of measure*)
+Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyModerate],{t,60}]//Quiet
+
+
+FindMaximum[
+Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
 Export[StringJoin[generated,"elderly_hosp_1.65.pdf"],plt]
 
 
 (* ::Subsubsection:: *)
-(*Plots: mortality*)
+(*Mortality*)
 
 
 plt=Plot[{Evaluate[Total[mortalityCumulative[[7]]]/.sol],Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyModerate],Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyFull]},{t,0,250},
@@ -976,6 +939,10 @@ PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 FrameTicks->{{0,60,120,180,240},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
 
 
+(* ::Subsubsection:: *)
+(*Calculation for determining the impact*)
+
+
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of measure*)
 
 
@@ -988,7 +955,7 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for im
 Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Sensitivity analysis (for generate plot, set Boolean to True!)*)
 
 
@@ -1049,7 +1016,7 @@ Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}]]
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Seasonality*)
 
 
@@ -1237,7 +1204,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet(*calculation for impact of seasonality*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Spatial heterogeneity*)
 
 
@@ -1247,6 +1214,10 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 
 (* ::Subsubsection:: *)
 (*First scenario*)
+
+
+(* ::Subsubsection:: *)
+(*Initialization *)
 
 
 R0=1.32;
@@ -1293,6 +1264,10 @@ ksi=xi;
 asymp=relInfectA;
 
 
+(* ::Subsubsection:: *)
+(*Initial values*)
+
+
 R0Bp=1.32;
 R0other=1.32;
 
@@ -1331,6 +1306,10 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 
 
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
+
+
+(* ::Subsubsection:: *)
+(*First scenario*)
 
 
 plt=Plot[{
@@ -1429,7 +1408,7 @@ ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
 {{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*What if ... impact of implemented measures*)
 
 
@@ -1513,7 +1492,7 @@ ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],PlotStyle->{
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Technical appendix*)
 
 
