@@ -117,7 +117,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -163,17 +163,21 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 
 plt=Plot[
-{Sum[ih[i][t] + icr[i][t],{i,1,nAge}]/.sol, 
-Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,200},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black,35],
-AxesStyle->Directive[Thickness[0.005]],
-PlotLabel->Style["Weak control, R = 1.65\nTotal hospital bed and ICU need"],
-PlotStyle->twoPlotsStylehosp,
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-Background->White,
-FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000, "5,000 "},{10000, "10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, ImageSize->900]
+	{Sum[ih[i][t] + icr[i][t],{i,1,nAge}]/.sol, 
+	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,200},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black,35],
+		AxesStyle->Directive[Thickness[0.005]],
+		PlotLabel->Style["Weak control, R = 1.65\nTotal hospital bed and ICU need"],
+		PlotStyle->twoPlotsStylehosp,
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		Background->White,
+		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
+					{{5000, "5,000 "},{10000, "10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, 
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"weak_hosp.pdf"],plt]
@@ -207,16 +211,20 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 
 plt=Plot[
-{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
-Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,300},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotLabel->Style["Moderate control, R = 1.32\nTotal hospital bed and ICU need"],
-PlotStyle->twoPlotsStylehosp,
-Background->White,
-FrameTicks->{{0, 60, 120,180,240,300},{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "}}},  ImageSize->900]
+	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
+	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,300},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black,35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotLabel->Style["Moderate control, R = 1.32\nTotal hospital bed and ICU need"],
+		PlotStyle->twoPlotsStylehosp,
+		Background->White,
+		FrameTicks->{{0, 60, 120,180,240,300},
+					{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "}}}, 
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"moderate_hosp.pdf"],plt]
@@ -250,18 +258,24 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 
 plt=Plot[
-{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
-Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,650},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[ Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotLabel->Style["Strong control, R = 1.1\nTotal hospital bed and ICU need"],
-PlotStyle->twoPlotsStylehosp,
-PlotLegends->Placed[LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},LegendMarkerSize->{40,12},LegendMarkers -> 
-    Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
-Background->White,
-FrameTicks->{{0, 120, 240, 360, 480, 600},{{250, "250 "},{500, "500 "},{750, "750 "},{1000, "1,000 "}}}, ImageSize->900]
+	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
+	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,650},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[ Black,35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotLabel->Style["Strong control, R = 1.1\nTotal hospital bed and ICU need"],
+		PlotStyle->twoPlotsStylehosp,
+		PlotLegends->Placed[
+					LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},
+					LegendMarkerSize->{40,12},
+					LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
+		Background->White,
+		FrameTicks->{{0, 120, 240, 360, 480, 600},
+					{{250, "250 "},{500, "500 "},{750, "750 "},{1000, "1,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"strong_hosp.pdf"],plt]
@@ -295,17 +309,21 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(*Incidence*)
-plt=Plot[fincidence[s],{s,1,200},
-PlotRange->{0, All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black, 35],
-PlotLabel->Style["Incidence"],
-AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->twoPlotsStyle,
-Background->White,
-FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{20000,"20,000 "},{40000,"40,000 "},{60000,"60,000 "},{80000,"80,000 "},{100000,"100,000 "},{120000,"120,000 "}}}, ImageSize->900]
+plt=Plot[
+	fincidence[s],{s,1,200},
+		PlotRange->{0, All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black, 35],
+		PlotLabel->Style["Incidence"],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->twoPlotsStyle,
+		Background->White,
+		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
+					{{20000,"20,000 "},{40000,"40,000 "},{60000,"60,000 "},{80000,"80,000 "},{100000,"100,000 "},{120000,"120,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"weak_inc.pdf"],plt]
@@ -338,17 +356,21 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(*Incidence*)
-plt=Plot[fincidence[s],{s,1,300},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black,35],
-PlotLabel->Style["Incidence"],
-AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->twoPlotsStyle,
-Background->White,
-FrameTicks->{{0, 60, 120, 180,240,300},{{10000,"10,000 "},{20000,"20,000 "},{30000,"30,000 "},{40000,"40,000 "},{50000,"50,000 "}}},  ImageSize->900]
+plt=Plot[
+	fincidence[s],{s,1,300},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black,35],
+		PlotLabel->Style["Incidence"],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->twoPlotsStyle,
+		Background->White,
+		FrameTicks->{{0, 60, 120, 180,240,300},
+					{{10000,"10,000 "},{20000,"20,000 "},{30000,"30,000 "},{40000,"40,000 "},{50000,"50,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"moderate_inc.pdf"],plt]
@@ -368,17 +390,21 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(*Incidence*)
-plt=Plot[fincidence[s],{s,1,650},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black,35],
-PlotLabel->Style["Incidence"],
-AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->twoPlotsStyle,
-Background->White,
-FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "},{5000,"5,000 "},{6000,"6,000 "}}},  ImageSize->900]
+plt=Plot[
+	fincidence[s],{s,1,650},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black,35],
+		PlotLabel->Style["Incidence"],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->twoPlotsStyle,
+		Background->White,
+		FrameTicks->{{0,120,240,360,480,600},
+					{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "},{5000,"5,000 "},{6000,"6,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
@@ -406,29 +432,33 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(*Mortality*)
-plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,200},
-PlotLabel->Style["Mortality\nR=1.65"],
-PlotRange->{0,All},
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-AxesStyle->Directive[Thickness[0.005], Black, FontSize->35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, ImageSize->900]
+plt=Plot[
+	Evaluate[mortalityCumulative/.sol],{t,0,200},
+		PlotLabel->Style["Mortality\nR=1.65"],
+		PlotRange->{0,All},
+		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+					{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+					{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+					{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+					{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize->35], 
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+				{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+				{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+				{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+				{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+		Background->White,
+		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
+					{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"weak_mort.pdf"],plt]
@@ -455,29 +485,34 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,360},
-PlotRange->{0,All},
-PlotLabel->Style["Mortality\nR=1.32"],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0, 60, 120, 180,240,300, 360},{{2000, "2,000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "},{10000,"10,000 "},{12000, "12,000 "}}}, ImageSize->900]
+plt=Plot[
+	Evaluate[mortalityCumulative/.sol],{t,0,360},
+	PlotRange->{0,All},
+	PlotLabel->Style["Mortality\nR=1.32"],
+	PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+	PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+				{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+				{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+				{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+				{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+				{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+				{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+	AxesStyle->Directive[Thickness[0.005],Black,FontSize->35],
+	LabelStyle->Directive[ Black,35],
+	Frame->{{True, False},{True, False}},
+	FrameStyle-> Directive[Thickness[0.005], 35],
+	FrameLabel->{"days passed",""},
+	Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+			{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+			{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+			{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+			{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+			{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+			{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+	Background->White,
+	FrameTicks->{{0, 60, 120, 180,240,300, 360},
+				{{2000, "2,000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "},{10000,"10,000 "},{12000, "12,000 "}}},
+	ImageSize->900]
 
 
 Export[StringJoin[generated,"moderate_mort.pdf"],plt]
@@ -504,28 +539,33 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,630},
-PlotRange->{0,All},
-PlotLabel->Style["Mortality\nR=1.1"],
-PlotRangePadding->0,
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""}, LabelStyle->Directive[ Black,35],
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},ImageSize->900]
+plt=Plot[
+	Evaluate[mortalityCumulative/.sol],{t,0,630},
+		PlotRange->{0,All},
+		PlotLabel->Style["Mortality\nR=1.1"],
+		PlotRangePadding->0,
+		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+					{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+					{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+					{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+					{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		LabelStyle->Directive[ Black,35],
+		Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+				{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+				{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+				{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+				{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+		Background->White,
+		FrameTicks->{{0,120,240,360,480,600},
+					{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"strong_mort.pdf"],plt]
@@ -556,29 +596,33 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-plt=Plot[Evaluate[cumulative/.sol],{t,0,200},
-PlotRange->{0,All},
-PlotLabel->Style["Recovered\nR=1.65"],
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0, 30, 60, 90, 120, 150,180},
-{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}}, ImageSize->900]
+plt=Plot[
+	Evaluate[cumulative/.sol],{t,0,200},
+		PlotRange->{0,All},
+		PlotLabel->Style["Recovered\nR=1.65"],
+		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+					{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+					{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+					{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+					{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+		AxesStyle->Directive[Thickness[0.005],Black,FontSize->35],
+		LabelStyle->Directive[Black,35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+				{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+				{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+				{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+				{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+		Background->White,
+		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
+					{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "}}},
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"weak_cumu.pdf"],plt]
@@ -605,30 +649,34 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-plt=Plot[Evaluate[cumulative/.sol],{t,0,360},
-PlotRange->{0,All},
-PlotLabel->Style["Recovered\nR=1.32"],
-PlotRangePadding->0,
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
- AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[ Black, 35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
-FrameTicks->{{0, 60, 120, 180,240,300, 360},
-{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "}}},Background->White,ImageSize->900]
+plt=Plot[
+	Evaluate[cumulative/.sol],{t,0,360},
+		PlotRange->{0,All},
+		PlotLabel->Style["Recovered\nR=1.32"],
+		PlotRangePadding->0,
+		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+					{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+					{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+					{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+					{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+		AxesStyle->Directive[Thickness[0.005],Black,FontSize->35],
+		LabelStyle->Directive[ Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+				{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+				{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+				{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+				{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+		FrameTicks->{{0, 60, 120, 180,240,300, 360},
+					{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "}}},
+		Background->White,
+		ImageSize->900]
 
 
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
@@ -655,28 +703,34 @@ beta[t_]={baseBeta*contactMatrix};
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-plt=Plot[Evaluate[cumulative/.sol],{t,0,630},
-PlotRange->{0,All},
-PlotLabel->Style["Recovered\nR=1.1"],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
-FrameTicks->{{0,120,240,360,480,600},{{300000,"300,000 "},{600000,"600,000 "},{900000,"900,000 "},{1200000,"1.2 Mio. "},{2500000,"2.5 Million"}}},Background->White,ImageSize->900]
+plt=Plot[
+	Evaluate[cumulative/.sol],{t,0,630},
+		PlotRange->{0,All},
+		PlotLabel->Style["Recovered\nR=1.1"],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+					{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+					{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+					{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+					{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+		AxesStyle->Directive[Thickness[0.005],Black,FontSize->35],
+		LabelStyle->Directive[Black,35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		Filling->{{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+				{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+				{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+				{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+				{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
+		FrameTicks->{{0,120,240,360,480,600},
+					{{300000,"300,000 "},{600000,"600,000 "},{900000,"900,000 "},{1200000,"1.2 Mio. "}}},
+		Background->White,
+		ImageSize->900]
 
 
 (* ::Text:: *)
@@ -689,7 +743,7 @@ FindMaximum[cumulative[[7]]/.sol,{t,70}]//Quiet
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Age-specific analysis*)
 
 
@@ -726,18 +780,22 @@ solschool=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, ga
 
 
 plt=Plot[
-{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
-Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->twoPlotsStyle,
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["Hospital bed needs"],
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,
-FrameTicks->{
-{0,60,120,180,240, 300, 360, 420},
-{{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
+	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
+	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->twoPlotsStyle,
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}}, 
+		FrameStyle -> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["Hospital bed needs"],
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		Background->White,
+		FrameTicks->{{0,60,120,180,240, 300, 360, 420},
+					{{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
 Export[StringJoin[generated,"school_hosp_1.65.pdf"],plt]
@@ -760,17 +818,22 @@ Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
 plt=Plot[
-{Sum[ic[i][t],{i,1,nAge}]/.sol, 
-Sum[ic[i][t],{i,1,nAge}]/.solschool},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->twoPlotsStyle,
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["ICU needs"],
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,FrameTicks->{
-{0,60,120,180,240, 300, 360, 420},
-{{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
+	{Sum[ic[i][t],{i,1,nAge}]/.sol, 
+	Sum[ic[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->twoPlotsStyle,
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle -> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["ICU needs"],
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		Background->White
+		FrameTicks->{{0,60,120,180,240, 300, 360, 420},
+					{{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
 
 
 Export[StringJoin[generated,"school_icu_1.65.pdf"],plt]
@@ -792,15 +855,23 @@ Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact o
 (*Mortality*)
 
 
-plt=Plot[{Evaluate[Total[mortalityCumulative[[7]]]/.sol],Evaluate[Total[mortalityCumulative[[7]]]/.solschool]},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->twoPlotsStyle,
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["Mortality"], Background->White,
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-FrameTicks->{{0,60,120,180,240, 300, 360, 420, 480},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "}}}]
+plt=Plot[
+	{Evaluate[Total[mortalityCumulative[[7]]]/.sol],
+	Evaluate[Total[mortalityCumulative[[7]]]/.solschool]},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->twoPlotsStyle,
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle -> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["Mortality"],
+		Background->White,
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		FrameTicks->{{0,60,120,180,240, 300, 360, 420, 480},
+					{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "}}}]
 
 
 (* ::Text:: *)
@@ -859,23 +930,25 @@ solElderlyFull=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gamma
 
 
 plt=Plot[
-{Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyModerate],
-Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull]
-},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
-{Thickness[0.01],ColorData["Crayola"]["Silver"]},
-{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["Hospital bed needs"],
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,
-FrameTicks->{
-{0,60,120,180,240},
-{{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
+	{Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol],
+	Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyModerate],
+	Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull]},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
+					{Thickness[0.01],ColorData["Crayola"]["Silver"]},
+					{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle -> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["Hospital bed needs"],
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		Background->White,
+		FrameTicks->{{0,60,120,180,240},
+					{{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
 Export[StringJoin[generated,"elderly_total_hosp_1.65.pdf"],plt]
@@ -902,23 +975,25 @@ Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
 plt=Plot[
-{Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol],
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyModerate],
-Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull]
-},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
-{Thickness[0.01],ColorData["Crayola"]["Silver"]},
-{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["ICU needs"],
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,
-FrameTicks->{
-{0,60,120,180,240},
-{{1500, "1,500 "},{3000, "3,000 "},{4500, "4,500 "},{6000, " 6,000 "}}}]
+	{Evaluate[Sum[ic[i][t],{i,1,nAge}]/.sol],
+	Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyModerate],
+	Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull]},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
+					{Thickness[0.01],ColorData["Crayola"]["Silver"]},
+					{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle -> Directive[Thickness[0.005], 35], 
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["ICU needs"],
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		Background->White,
+		FrameTicks->{{0,60,120,180,240},
+					{{1500, "1,500 "},{3000, "3,000 "},{4500, "4,500 "},{6000, " 6,000 "}}}]
 
 
 Export[StringJoin[generated,"elderly_hosp_1.65.pdf"],plt]
@@ -944,18 +1019,26 @@ Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 (*Mortality*)
 
 
-plt=Plot[{Evaluate[Total[mortalityCumulative[[7]]]/.sol],Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyModerate],Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyFull]},{t,0,250},
-PlotRange->{0,All},
-PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
-{Thickness[0.01],ColorData["Crayola"]["Silver"]},
-{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
-AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35], LabelStyle->Directive[Black, 35],
-Frame->{{True, False},{True, False}}, FrameStyle -> Directive[Thickness[0.005], 35], FrameLabel->{"days passed",""},
-PlotLabel->Style["Mortality"], Background->White,
-FrameLabel->{"days since release",""}, ImageSize -> 900,
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-FrameTicks->{{0,60,120,180,240},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
+plt=Plot[
+	{Evaluate[Total[mortalityCumulative[[7]]]/.sol],
+	Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyModerate],
+	Evaluate[Total[mortalityCumulative[[7]]]/.solElderlyFull]},{t,0,250},
+		PlotRange->{0,All},
+		PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["OuterSpace"]},
+					{Thickness[0.01],ColorData["Crayola"]["Silver"]},
+					{Thickness[0.01],ColorData["Crayola"]["Periwinkle"]}},
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+		LabelStyle->Directive[Black, 35],
+		Frame->{{True, False},{True, False}},
+		FrameStyle -> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days passed",""},
+		PlotLabel->Style["Mortality"],
+		Background->White,
+		FrameLabel->{"days since release",""},
+		ImageSize -> 900,
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		FrameTicks->{{0,60,120,180,240},
+		{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
 
 
 Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
@@ -1035,7 +1118,7 @@ Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}]]
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Seasonality - Plots for Figure 10*)
 
 
@@ -1052,13 +1135,21 @@ ColorData["Crayola"]["VividViolet"]},
 
 maxChange=0.3;
 period[change_,t_]:=0.5*change*Cos[(t*2*Pi)/366]+(1-0.5*change);
-inset=Plot[{1,period[0.1,t],period[0.2,t],period[0.3,t]},{t,0,366},PlotRange->{1-1.16*maxChange,1.05},LabelStyle->Directive[Black, 30],
-PlotStyle->fourplotsStyle,
-PlotLabel->Style["Seasonality function", 35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"","rel. transmissibility"},
-FrameTicks->{
-{{0,"December 1"},{31+31+28+31+30+31,"June 1"},{366,"December 1"}},
-{0.0,0.1,0.2,0.3,0.4,0.5,0.65,{0.7, "0.7 "},{0.8, "0.8 "},{0.9, "    0.9 "},{1.0, "1 "}}}, ImageSize->900, Background->White]
+inset=Plot[
+		{1,period[0.1,t],
+		period[0.2,t],
+		period[0.3,t]},{t,0,366},
+			PlotRange->{1-1.16*maxChange,1.05},
+			LabelStyle->Directive[Black, 30],
+			PlotStyle->fourplotsStyle,
+			PlotLabel->Style["Seasonality function", 35],
+			Frame->{{True, False},{True, False}},
+			FrameStyle-> Directive[Thickness[0.005], 35],
+			FrameLabel->{"","rel. transmissibility"},
+			FrameTicks->{{{0,"December 1"},{31+31+28+31+30+31,"June 1"},{366,"December 1"}},
+						{0.0,0.1,0.2,0.3,0.4,0.5,0.65,{0.7, "0.7 "},{0.8, "0.8 "},{0.9, "    0.9 "},{1.0, "1 "}}},
+			ImageSize->900,
+			Background->White]
 
 
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
@@ -1090,21 +1181,24 @@ solP03=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gamma
 
 
 plt=Plot[
-{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]
-},{t,0,250},
-PlotRange->{0,All},
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black, 30],
-AxesLabel->{"time","number of infected individuals"},
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"","no. of infected"},
-PlotLabel->Style["Epidemic curve with seasonality, R = 1.65"],
-PlotStyle->fourplotsStyle,
-PlotRange->All,
-FrameTicks->{{{0,"May 1"},{61,"July 1"},{123, "Sept. 1"},{184, "Nov. 1"},{245,"Jan. 1"},300},{{100000,"100,000 "},{200000,"200,000 "},{300000,"300,000 "},{400000,"400,000 "},{500000,"500,000 "}}},
-ImageSize->900, Background->White]
+	{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]},{t,0,250},
+		PlotRange->{0,All},
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black, 30],
+		AxesLabel->{"time","number of infected individuals"},
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"","no. of infected"},
+		PlotLabel->Style["Epidemic curve with seasonality, R = 1.65"],
+		PlotStyle->fourplotsStyle,
+		PlotRange->All,
+		FrameTicks->{{{0,"May 1"},{61,"July 1"},{123, "Sept. 1"},{184, "Nov. 1"},{245,"Jan. 1"},300},
+					{{100000,"100,000 "},{200000,"200,000 "},{300000,"300,000 "},{400000,"400,000 "},{500000,"500,000 "}}},
+		ImageSize->900,
+		Background->White]
 
 
 Export[StringJoin[generated,"seas_weak.pdf"],plt]
@@ -1146,18 +1240,22 @@ solP03=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gamma
 
 
 plt=Plot[
-{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]
-},{t,0,400},
-LabelStyle->Directive[Black, 30],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-PlotLabel->Style["Epidemic curve with seasonality, R = 1.32"],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"","no. of infected"},
-PlotStyle->fourplotsStyle,
-PlotRange->{0,All},
-FrameTicks->{{{0,"May 1"}, {92,"Aug. 1"},{184,"Nov. 1"},{276, "Feb. 1"},{366, "May 1"},450},{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}}, ImageSize->900, Background->White]
+	{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]},{t,0,400},
+		LabelStyle->Directive[Black, 30],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		PlotLabel->Style["Epidemic curve with seasonality, R = 1.32"],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"","no. of infected"},
+		PlotStyle->fourplotsStyle,
+		PlotRange->{0,All},
+		FrameTicks->{{{0,"May 1"}, {92,"Aug. 1"},{184,"Nov. 1"},{276, "Feb. 1"},{366, "May 1"},450},
+					{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}}, 
+		ImageSize->900, 
+		Background->White]
 
 
 Export[StringJoin[generated,"seas_moderate.pdf"],plt]
@@ -1202,20 +1300,24 @@ solP03=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gamma
 
 
 plt=Plot[
-{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
-Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]
-},{t,0,700},
-PlotRange->{0,All},
-LabelStyle->Directive[Black, 30],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"","no. of infected"},
-PlotLabel->Style["Epidemic curve with seasonality, R = 1.1"],
-AxesLabel->{"time","number of infected individuals"},
-PlotStyle->fourplotsStyle,
-PlotRange->All,
-FrameTicks->{{{0,"May 1"},{123, "Sept. 1"},{245,"Jan. 1"},{366, "May 1"},{489, "Sept. 1"},{612, "Jan. 1"}},{{5000,"5,000 "},{10000,"10,000 "},{15000, "15,000 "},{20000, "20,000 "},{25000, " 25,000 "}}},ImageSize->900, Background->White]
+	{Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.sol],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP01],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP02],
+	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]},{t,0,700},
+		PlotRange->{0,All},
+		LabelStyle->Directive[Black, 30],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"","no. of infected"},
+		PlotLabel->Style["Epidemic curve with seasonality, R = 1.1"],
+		AxesLabel->{"time","number of infected individuals"},
+		PlotStyle->fourplotsStyle,
+		PlotRange->All,
+		FrameTicks->{{{0,"May 1"},{123, "Sept. 1"},{245,"Jan. 1"},{366, "May 1"},{489, "Sept. 1"},{612, "Jan. 1"}},
+					{{5000,"5,000 "},{10000,"10,000 "},{15000, "15,000 "},{20000, "20,000 "},{25000, " 25,000 "}}},
+		ImageSize->900, 
+		Background->White]
 
 
 Export[StringJoin[generated,"seas_strong.pdf"],plt]
@@ -1231,7 +1333,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Spatial heterogeneity*)
 
 
@@ -1335,23 +1437,27 @@ sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3
 (*First scenario*)
 
 
-plt=Plot[{
-sumOfI1patch[t],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},
-{t,0,250},
-PlotRange->{0, All},
-PlotLabel->Style[""],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black, 35], AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
-{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
-{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
-{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
+plt=Plot[
+	{sumOfI1patch[t],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},{t,0,250},
+		PlotRange->{0, All},
+		PlotLabel->Style[""],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black, 35],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
+					{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
+					{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
+					{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+		ImageSize->900,
+		FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
+					{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},
+		Background->White]
 
 
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
@@ -1371,23 +1477,27 @@ solequalR10k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, 
 sumOfIequalR10k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.solequalR10k];
 
 
-plt=Plot[{
-sumOfI1patch[t],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.solequalR10k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},
-{t,0,250},
-PlotRange->{0, All},
-PlotLabel->Style[""],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black, 35], AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
-{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
-{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
-{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
+plt=Plot[
+	{sumOfI1patch[t],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.solequalR10k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},{t,0,250},
+		PlotRange->{0, All},
+		PlotLabel->Style[""],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black, 35],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
+					{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
+					{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
+					{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+		ImageSize->900,
+		FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
+					{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},
+		Background->White]
 
 
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
@@ -1418,23 +1528,27 @@ soldifferentR10k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gamm
 sumOfIdifferentR10k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.soldifferentR10k];
 
 
-plt=Plot[{
-sumOfI1patch[t],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.soldifferentR10k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
-Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},
-{t,0,250},
-PlotRange->{0, All},
-PlotLabel->Style[""],
-PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-LabelStyle->Directive[Black, 35], AxesStyle->Directive[Thickness[0.005]],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days since release",""},
-PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
-{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
-{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
-{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
-{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
+plt=Plot[
+	{sumOfI1patch[t],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.soldifferentR10k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
+	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},{t,0,250},
+		PlotRange->{0, All},
+		PlotLabel->Style[""],
+		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
+		LabelStyle->Directive[Black, 35],
+		AxesStyle->Directive[Thickness[0.005]],
+		Frame->{{True, False},{True, False}},
+		FrameStyle-> Directive[Thickness[0.005], 35],
+		FrameLabel->{"days since release",""},
+		PlotStyle->{{CapForm["Butt"], Dashed, Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},
+					{CapForm["Butt"], Dashed, Thickness[0.01],ColorData["Crayola"]["Brown"]},
+					{Thickness[0.01],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]},
+					{Thickness[0.01],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+		ImageSize->900,
+		FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
+					{{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},
+		Background->White]
 
 
 Export[StringJoin[generated,"hetero_10k_BP1.47Other1.25Uniform1.32.pdf"],plt]
