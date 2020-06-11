@@ -1,6 +1,10 @@
 #!/usr/bin/env wolframscript -cloud
 (* ::Package:: *)
 
+(* ::Chapter::Closed:: *)
+(*Notebook initialization*)
+
+
 Import[StringJoin[NotebookDirectory[],"modules/contactmatrix.wl"]]
 Import[StringJoin[NotebookDirectory[],"modules/model.wl"]]
 
