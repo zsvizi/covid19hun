@@ -11,11 +11,11 @@ If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[Str
 generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
-(* ::Section::Closed:: *)
+(* ::Chapter::Closed:: *)
 (*Initialization*)
 
 
-(* ::Subsubsection:: *)
+(* ::Section:: *)
 (*Parameters*)
 
 
@@ -38,7 +38,7 @@ ksi=xi;
 asymp=relInfectA;
 
 
-(* ::Subsubsection:: *)
+(* ::Section:: *)
 (*Initial values*)
 
 
@@ -71,7 +71,7 @@ init=Transpose[{s0,l10,l20,ip0,ia10,ia20,ia30,is10,is20,is30,ih0,ic0,icr0,r0,d0,
 sol=modelSolver[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(* ::Subsubsection:: *)
+(* ::Section:: *)
 (*Functions*)
 
 
@@ -97,7 +97,7 @@ t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
 die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
 
 
-(* ::Subsubsection:: *)
+(* ::Section:: *)
 (*Finalizing the initial values*)
 
 
@@ -117,7 +117,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Section::Closed:: *)
+(* ::Chapter::Closed:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -140,8 +140,12 @@ ticklabel2={{0,"1.May"},{31+30,"1.July"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+
 ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"},{365,"1.May"},{365+31+30+30+31,"1.Sept"},{365+31+30+30+31+30+31+30+31,"1.Jan"}};
 
 
-(* ::Subsection:: *)
+(* ::Section:: *)
 (*Plots for Figure 6*)
+
+
+(* ::Subsection:: *)
+(*Plots for hospitalization*)
 
 
 (* ::Subsubsection:: *)
@@ -273,7 +277,7 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Plots for incidence*)
 
 
@@ -380,8 +384,12 @@ FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,0
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
 
 
-(* ::Subsubsection:: *)
+(* ::Section:: *)
 (*Plots for Figure 7*)
+
+
+(* ::Subsection:: *)
+(*Mortality*)
 
 
 (* ::Subsubsection:: *)
@@ -396,10 +404,6 @@ beta[t_]={baseBeta*contactMatrix};
 
 
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
-
-
-(* ::Subsubsection:: *)
-(*Mortality*)
 
 
 (*Mortality*)
@@ -427,53 +431,14 @@ Filling->{
 FrameTicks->{{0, 30, 60, 90, 120, 150,180},{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, ImageSize->900]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"weak_mort.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for Table 2*)
 
 
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
-
-
-Export[StringJoin[generated,"weak_mort.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
-(*Recovered*)
-
-
-plt=Plot[Evaluate[cumulative/.sol],{t,0,200},
-PlotRange->{0,All},
-PlotLabel->Style["Recovered\nR=1.65"],
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0, 30, 60, 90, 120, 150,180},
-{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}}, ImageSize->900]
-
-
-(* ::Subsubsection:: *)
-(*Calculation for Table 2*)
-
-
-FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
-
-
-Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 
 
 (* ::Subsubsection:: *)
@@ -488,10 +453,6 @@ beta[t_]={baseBeta*contactMatrix};
 
 
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
-
-
-(* ::Subsubsection:: *)
-(*Mortality*)
 
 
 plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,360},
@@ -519,18 +480,129 @@ Filling->{
 FrameTicks->{{0, 60, 120, 180,240,300, 360},{{2000, "2,000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "},{10000,"10,000 "},{12000, "12,000 "}}}, ImageSize->900]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"moderate_mort.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for Table 2*)
 
 
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-Export[StringJoin[generated,"moderate_mort.pdf"],plt]
+(* ::Subsubsection:: *)
+(*R = 1.1*)
+
+
+R0=1.1;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,630},
+PlotRange->{0,All},
+PlotLabel->Style["Mortality\nR=1.1"],
+PlotRangePadding->0,
+PlotStyle->{
+{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""}, LabelStyle->Directive[ Black,35],
+Filling->{
+{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
+FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},ImageSize->900]
+
+
+Export[StringJoin[generated,"strong_mort.pdf"],plt]
+
+
+(* ::Text:: *)
+(*Calculation for Table 2*)
+
+
+FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
+
+
+(* ::Subsection:: *)
+(*Recovered*)
 
 
 (* ::Subsubsection:: *)
-(*Recovered*)
+(*R = 1.65*)
+
+
+R0=1.65;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
+plt=Plot[Evaluate[cumulative/.sol],{t,0,200},
+PlotRange->{0,All},
+PlotLabel->Style["Recovered\nR=1.65"],
+PlotStyle->{
+{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
+{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
+{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
+{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
+{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
+{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
+{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
+AxesStyle->Directive[Thickness[0.005],Black,FontSize->35], LabelStyle->Directive[Black,35],
+Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""},
+Filling->{
+{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
+{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
+{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
+{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
+{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
+{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
+{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
+FrameTicks->{{0, 30, 60, 90, 120, 150,180},
+{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "},{6000000,"6 Million"},{7000000,"7 Million"}}}, ImageSize->900]
+
+
+Export[StringJoin[generated,"weak_cumu.pdf"],plt]
+
+
+(* ::Text:: *)
+(*Calculation for Table 2*)
+
+
+FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
+(* ::Subsubsection:: *)
+(*R = 1.32*)
+
+
+R0=1.32;
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+
+
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
 plt=Plot[Evaluate[cumulative/.sol],{t,0,360},
@@ -562,7 +634,7 @@ FrameTicks->{{0, 60, 120, 180,240,300, 360},
 Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*Calculation for Table 2*)
 
 
@@ -581,51 +653,6 @@ beta[t_]={baseBeta*contactMatrix};
 
 
 sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
-
-
-Export[StringJoin[generated,"strong_epi.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
-(*Mortality*)
-
-
-plt=Plot[Evaluate[mortalityCumulative/.sol],{t,0,630},
-PlotRange->{0,All},
-PlotLabel->Style["Mortality\nR=1.1"],
-PlotRangePadding->0,
-PlotStyle->{
-{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
-{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
-{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
-{RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`], Thickness[0.0075]},
-{RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`], Thickness[0.0075]},
-{RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`], Thickness[0.0075]},
-{RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`], Thickness[0.0075]}},
-Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35],FrameLabel->{"days passed",""}, LabelStyle->Directive[ Black,35],
-Filling->{
-{7-> {{6}, RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]}},
-{6-> {{5}, RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`]}},
-{5-> {{4}, RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}},
-{4-> {{3}, RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}},
-{3-> {{2}, RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}},
-{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
-{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},Background->White,
-FrameTicks->{{0,120,240,360,480,600},{{1000,"1,000 "},{2000,"2,000 "},{3000,"3,000 "},{4000,"4,000 "}}},ImageSize->900]
-
-
-(* ::Subsubsection:: *)
-(*Calculation for Table 2*)
-
-
-FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
-
-
-Export[StringJoin[generated,"strong_mort.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
-(*Recovered*)
 
 
 plt=Plot[Evaluate[cumulative/.sol],{t,0,630},
@@ -652,7 +679,7 @@ Frame->{{True, False},{True, False}},FrameStyle-> Directive[Thickness[0.005], 35
 FrameTicks->{{0,120,240,360,480,600},{{300000,"300,000 "},{600000,"600,000 "},{900000,"900,000 "},{1200000,"1.2 Mio. "},{2500000,"2.5 Million"}}},Background->White,ImageSize->900]
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*Calculation for Table 2*)
 
 
@@ -662,15 +689,15 @@ FindMaximum[cumulative[[7]]/.sol,{t,70}]//Quiet
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
-(* ::Section::Closed:: *)
+(* ::Chapter::Closed:: *)
 (*Age-specific analysis*)
 
 
-(* ::Subsection:: *)
+(* ::Section:: *)
 (*Plots for Figure 8*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Contact matrix*)
 
 
@@ -681,11 +708,7 @@ True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
 contactMatrixSchool=aggregatePREM[contactMatrixPREMSchool];
 
 
-(* ::Subsubsection:: *)
-(*Plots for Figure 8*)
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Hospital bed needs*)
 
 
@@ -717,7 +740,10 @@ FrameTicks->{
 {{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"school_hosp_1.65.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for determining the impact *)
 
 
@@ -729,10 +755,7 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
-Export[StringJoin[generated,"school_hosp_1.65.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*ICU needs*)
 
 
@@ -750,7 +773,10 @@ PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}}, Background->White,FrameTicks->{
 {{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"school_icu_1.65.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for determining the impact *)
 
 
@@ -762,10 +788,7 @@ FindMaximum[
 Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact of school closures*)
 
 
-Export[StringJoin[generated,"school_icu_1.65.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Mortality*)
 
 
@@ -780,7 +803,7 @@ PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 FrameTicks->{{0,60,120,180,240, 300, 360, 420, 480},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+(* ::Text:: *)
 (*Calculation for determining the impact *)
 
 
@@ -793,11 +816,11 @@ FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact 
 Export[StringJoin[generated,"school_mort_1.65.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Section:: *)
 (*Plots for Figure 9*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Contact matrix*)
 
 
@@ -815,8 +838,8 @@ True,contactPREM[[i,j]]],
 contactMatrixElderlyModerate=aggregatePREM[contactMatrixPREMElderlyModerate];
 
 
-(* ::Subsubsection:: *)
-(*Model*)
+(* ::Subsection:: *)
+(*Hospital bed needs*)
 
 
 R0=1.65;
@@ -833,10 +856,6 @@ solElderlyModerate=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, g
 
 beta[t_]={baseBeta*contactMatrixElderlyFull};
 solElderlyFull=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
-
-
-(* ::Subsubsection:: *)
-(*Hospital bed needs*)
 
 
 plt=Plot[
@@ -859,7 +878,10 @@ FrameTicks->{
 {{5000, "5,000 "},{10000, "10,000 "},{15000, "15,000 "},{20000, "20,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"elderly_total_hosp_1.65.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for determining the impact*)
 
 
@@ -875,10 +897,7 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
-Export[StringJoin[generated,"elderly_total_hosp_1.65.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*ICU needs*)
 
 
@@ -902,7 +921,10 @@ FrameTicks->{
 {{1500, "1,500 "},{3000, "3,000 "},{4500, "4,500 "},{6000, " 6,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"elderly_hosp_1.65.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for determining the impact*)
 
 
@@ -918,10 +940,7 @@ FindMaximum[
 Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
-Export[StringJoin[generated,"elderly_hosp_1.65.pdf"],plt]
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Mortality*)
 
 
@@ -939,7 +958,10 @@ PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 FrameTicks->{{0,60,120,180,240},{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
+
+
+(* ::Text:: *)
 (*Calculation for determining the impact*)
 
 
@@ -952,10 +974,7 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyModerate,{t,70}](*calculation fo
 FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for impact of measure*)
 
 
-Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
-
-
-(* ::Section::Closed:: *)
+(* ::Chapter::Closed:: *)
 (*Sensitivity analysis (for generate plot, set Boolean to True!)*)
 
 
@@ -1016,8 +1035,8 @@ Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}]]
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
-(* ::Section::Closed:: *)
-(*Seasonality*)
+(* ::Chapter::Closed:: *)
+(*Seasonality - Plots for Figure 10*)
 
 
 fourplotsStyle = {{Thickness[0.01],
@@ -1027,8 +1046,8 @@ ColorData["Crayola"]["VividViolet"]},
 {Thickness[0.01],ColorData["Crayola"]["JungleGreen"]}};
 
 
-(* ::Subsection:: *)
-(*Seasonality*)
+(* ::Section:: *)
+(*Seasonality function*)
 
 
 maxChange=0.3;
@@ -1045,12 +1064,8 @@ FrameTicks->{
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
 
 
-(* ::Subsection:: *)
-(*Plots for Figure 10*)
-
-
-(* ::Subsubsection:: *)
-(*Weak control*)
+(* ::Section:: *)
+(*R = 1.65*)
 
 
 R0=1.65;
@@ -1095,14 +1110,18 @@ ImageSize->900, Background->White]
 Export[StringJoin[generated,"seas_weak.pdf"],plt]
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}](*calculation for impact of seasonality*)
+(* ::Text:: *)
+(*Calculation for impact of seasonality*)
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}](*calculation for impact of seasonality*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]
 
 
-(* ::Subsubsection:: *)
-(*Moderate control*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
+
+
+(* ::Section:: *)
+(*R = 1.32*)
 
 
 R0=1.32;
@@ -1144,17 +1163,21 @@ FrameTicks->{{{0,"May 1"}, {92,"Aug. 1"},{184,"Nov. 1"},{276, "Feb. 1"},{366, "M
 Export[StringJoin[generated,"seas_moderate.pdf"],plt]
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP01],{t,150}](*calculation for impact of seasonality*)
+(* ::Text:: *)
+(*Calculation for impact of seasonality*)
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}](*calculation for impact of seasonality*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP01],{t,150}]
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}](*calculation for impact of seasonality*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]
 
 
-(* ::Subsubsection:: *)
-(*Strong control*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
+
+
+(* ::Section:: *)
+(*R = 1.1*)
 
 
 R0=1.1;
@@ -1198,25 +1221,25 @@ FrameTicks->{{{0,"May 1"},{123, "Sept. 1"},{245,"Jan. 1"},{366, "May 1"},{489, "
 Export[StringJoin[generated,"seas_strong.pdf"],plt]
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP01],{t,150}]//Quiet(*calculation for impact of seasonality*)
+(* ::Text:: *)
+(*Calculation for impact of seasonality*)
 
 
-FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet(*calculation for impact of seasonality*)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP01],{t,150}]//Quiet
 
 
-(* ::Section::Closed:: *)
+FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
+
+
+(* ::Chapter::Closed:: *)
 (*Spatial heterogeneity*)
 
 
-(* ::Subsection:: *)
+(* ::Section:: *)
 (*Plots for Figure 11*)
 
 
-(* ::Subsubsection:: *)
-(*First scenario*)
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Initialization *)
 
 
@@ -1264,7 +1287,7 @@ ksi=xi;
 asymp=relInfectA;
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*Initial values*)
 
 
@@ -1308,7 +1331,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection:: *)
 (*First scenario*)
 
 
@@ -1331,7 +1354,10 @@ ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
 {{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
+
+
+(* ::Subsection:: *)
 (*Second scenario*)
 
 
@@ -1364,7 +1390,10 @@ ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
 {{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-(* ::Subsubsection:: *)
+Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
+
+
+(* ::Subsection:: *)
 (*Third scenario*)
 
 
@@ -1408,7 +1437,10 @@ ImageSize->900, FrameTicks->{{0, 30, 60, 90, 120, 150, 180, 210, 240},
 {{50000,"50,000 "},{100000,"100,000 "},{150000,"150,000 "},{200000,"200,000 "}}},Background->White]
 
 
-(* ::Section::Closed:: *)
+Export[StringJoin[generated,"hetero_10k_BP1.47Other1.25Uniform1.32.pdf"],plt]
+
+
+(* ::Chapter::Closed:: *)
 (*What if ... impact of implemented measures*)
 
 
@@ -1492,7 +1524,7 @@ ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],PlotStyle->{
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Section::Closed:: *)
+(* ::Chapter::Closed:: *)
 (*Technical appendix*)
 
 
