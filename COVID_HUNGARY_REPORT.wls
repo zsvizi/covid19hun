@@ -831,7 +831,7 @@ plt=Plot[
 		FrameLabel->{"days since release",""},
 		ImageSize -> 900,
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-		Background->White
+		Background->White,
 		FrameTicks->{{0,60,120,180,240, 300, 360, 420},
 					{{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
 
@@ -1554,7 +1554,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.47Other1.25Uniform1.32.pdf"],plt]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*What if ... impact of implemented measures*)
 
 
@@ -1595,7 +1595,7 @@ init1=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, 
 (*get appropriate time to fit to the initial phase of the epidemic in Hungary*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Model*)
 
 
@@ -1619,20 +1619,28 @@ func=Interpolation[Table[{i-1,hunData[[i]]},{i,1,57}]]
 
 
 (*Cumulative curve*)
-plot=Show[LogPlot[
-{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
-LabelStyle->Directive[35,Black,Bold], PlotRange->{{0,All},{20,All}}, AxesOrigin->{0.,20.},
-PlotLabel->Style["Cumulative number of cases"],
-PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]},
-Opacity[0]},
-Filling->{1->{2}},
-FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
-Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
-ListLogPlot[Table[{i-1,hunData[[i]]},{i,1,57}],PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["Blue"]}}],
-ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],PlotStyle->{
-{Thickness[0.01],ColorData["Crayola"]["Red"]}}],Background->White, ImageSize->{1000,500}]
+plot=Show[
+		LogPlot[
+			{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
+			LabelStyle->Directive[35,Black],
+			PlotRange->{{0,All},{20,All}}, 
+			AxesOrigin->{0.,20.},
+			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+			LabelStyle->Directive[Black, 35],
+			PlotLabel->Style["Cumulative number of cases"],
+			PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]},Opacity[0]},
+			Filling->{1->{2}},
+			FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
+			Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
+					{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
+		ListLogPlot[Table[{i-1,hunData[[i]]},{i,1,57}],
+			PlotStyle->{{Thickness[0.01],
+						ColorData["Crayola"]["Blue"]}}],
+		ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
+			PlotStyle->{{Thickness[0.01],
+						ColorData["Crayola"]["Red"]}}],
+		Background->White,
+		ImageSize->{1000,500}]
 
 
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
