@@ -101,7 +101,7 @@ t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
 die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Finalizing the initial values*)
 
 
@@ -156,7 +156,7 @@ ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"}
 (*Plots for hospitalization*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
@@ -204,7 +204,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.32*)
 
 
@@ -221,7 +221,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
 	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,300},
-		PlotRange->{0,All},
+		PlotRange->{0,20000},
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black,35],
 		Frame->{{True, False},{True, False}},
@@ -231,7 +231,7 @@ plt=Plot[
 		PlotStyle->twoPlotsStylehosp,
 		Background->White,
 		FrameTicks->{{0, 60, 120,180,240,300},
-					{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "}}}, 
+					{{1500," 1,500 "},{3000," 3,000 "},{4500," 4,500 "},{6000," 6,000 "},{7500," 7,500 "},{20000," 20,000 "}}}, 
 		ImageSize->900]
 
 
@@ -251,7 +251,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.1*)
 
 
@@ -268,7 +268,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
 	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,650},
-		PlotRange->{0,All},
+		PlotRange->{0,20000},
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[ Black,35],
 		Frame->{{True, False},{True, False}},
@@ -282,7 +282,7 @@ plt=Plot[
 					LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
 		Background->White,
 		FrameTicks->{{0, 120, 240, 360, 480, 600},
-					{{250, "250 "},{500, "500 "},{750, "750 "},{1000, "1,000 "}}},
+					{{250, "250 "},{500, "500 "},{750, "750 "},{1000, "1,000 "},{20000, "2,0000 "}}},
 		ImageSize->900]
 
 
@@ -418,7 +418,7 @@ plt=Plot[
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 7*)
 
 
@@ -755,7 +755,7 @@ Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 (*Age-specific analysis*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 8*)
 
 
@@ -898,7 +898,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of mea
 FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 9*)
 
 
