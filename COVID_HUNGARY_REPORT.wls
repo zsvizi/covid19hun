@@ -11,7 +11,7 @@ If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[Str
 generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Initialization*)
 
 
@@ -1057,11 +1057,11 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyModerate,{t,70}](*calculation fo
 FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Sensitivity analysis (for generate plot, set Boolean to True!)*)
 
 
-runThisSection=False;
+runThisSection=True;
 
 
 R0=1.65;
@@ -1105,14 +1105,14 @@ legendMax=40000;
 plot=Show[ListContourPlot[Flatten[maximumList,1],
 PlotRange->{{0.00289,0.0089},{1.1,2.4}},
 Contours->({#, If[Round[#] == 8000,
-				Directive[Thickness[0.01], White],
+				Directive[Thickness[0.0075], White],
 				Null
 		  ]}& /@ Range[ 0, legendMax, 1000]),
-PlotLegends->BarLegend[{Automatic, {0, legendMax}}, Table[i,{i,0,40000,1000}]], 
+PlotLegends->BarLegend[{Automatic, {0, legendMax}}, Table[i,{i,0,40000,1000}], LegendMarkerSize->200], 
 ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
 ColorFunctionScaling -> False,
-FrameLabel->{"IFR",Style["\[ScriptCapitalR]",FontSize->15]},LabelStyle->Directive[Bold, 12, Black]],
-Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}]]
+FrameLabel->{"IFR",Style["\[ScriptCapitalR]",FontSize->35]},LabelStyle->Directive[35, Black]],
+Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}], ImageSize->900]
 
 
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
@@ -1646,7 +1646,7 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Technical appendix*)
 
 
