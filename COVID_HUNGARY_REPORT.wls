@@ -1,6 +1,10 @@
 #!/usr/bin/env wolframscript -cloud
 (* ::Package:: *)
 
+(* ::Chapter::Closed:: *)
+(*Notebook initialization*)
+
+
 Import[StringJoin[NotebookDirectory[],"modules/contactmatrix.wl"]]
 Import[StringJoin[NotebookDirectory[],"modules/model.wl"]]
 
@@ -11,11 +15,11 @@ If[!DirectoryQ[StringJoin[NotebookDirectory[],"generated"]], CreateDirectory[Str
 generated=StringJoin[NotebookDirectory[],"generated/"];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Initialization*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Parameters*)
 
 
@@ -38,7 +42,7 @@ ksi=xi;
 asymp=relInfectA;
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Initial values*)
 
 
@@ -71,7 +75,7 @@ init=Transpose[{s0,l10,l20,ip0,ia10,ia20,ia30,is10,is20,is30,ih0,ic0,icr0,r0,d0,
 sol=modelSolver[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Functions*)
 
 
@@ -97,7 +101,7 @@ t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
 die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Finalizing the initial values*)
 
 
@@ -119,6 +123,10 @@ initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas
 
 (* ::Chapter:: *)
 (*Scenarios post-lockdown*)
+
+
+(* ::Section::Closed:: *)
+(*Styling*)
 
 
 twoPlotsStyle={
@@ -148,7 +156,7 @@ ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"}
 (*Plots for hospitalization*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -196,7 +204,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -243,7 +251,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -295,7 +303,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
 (*Plots for incidence*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -342,7 +350,7 @@ FindRoot[fincidence[s]-100000,{s,75}]
 Sum[fincidence[s],{s,54,73,1}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -376,7 +384,7 @@ plt=Plot[
 Export[StringJoin[generated,"moderate_inc.pdf"],plt]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -418,7 +426,7 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*Mortality*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -471,7 +479,7 @@ Export[StringJoin[generated,"weak_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -525,7 +533,7 @@ Export[StringJoin[generated,"moderate_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -582,7 +590,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 (*Recovered*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -635,7 +643,7 @@ Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -689,7 +697,7 @@ Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -751,18 +759,21 @@ Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 (*Plots for Figure 8*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Contact matrix*)
 
 
-contactMatrixPREMSchool=Table[
-Which[(4>=i>=2 || 4>=j>=2),contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]],
-True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
+contactMatrixPREMSchool=
+Table[
+	Which[
+	(4>=i>=2 || 4>=j>=2),
+			contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]],
+	True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
 {i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
 contactMatrixSchool=aggregatePREM[contactMatrixPREMSchool];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Hospital bed needs*)
 
 
@@ -813,7 +824,7 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*ICU needs*)
 
 
@@ -851,7 +862,7 @@ FindMaximum[
 Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact of school closures*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Mortality*)
 
 
@@ -874,6 +885,9 @@ plt=Plot[
 					{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "}}}]
 
 
+Export[StringJoin[generated,"school_mort_1.65.pdf"],plt]
+
+
 (* ::Text:: *)
 (*Calculation for determining the impact *)
 
@@ -884,32 +898,36 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of mea
 FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact of measure*)
 
 
-Export[StringJoin[generated,"school_mort_1.65.pdf"],plt]
-
-
 (* ::Section:: *)
 (*Plots for Figure 9*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Contact matrix*)
 
 
-contactMatrixPREMElderlyFull=Table[
-Which[(i>=13 || j>=13),contactPREM[[i,j]]-contactPREMother[[i,j]]-contactPREMschool[[i,j]]-contactPREMwork[[i,j]],
-True,contactPREM[[i,j]]],
+contactMatrixPREMElderlyFull=
+Table[
+	Which[
+	(i>=13 || j>=13),
+		contactPREM[[i,j]]-contactPREMother[[i,j]]-contactPREMschool[[i,j]]-contactPREMwork[[i,j]],
+	True,
+		contactPREM[[i,j]]],
 {i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
 contactMatrixElderlyFull=aggregatePREM[contactMatrixPREMElderlyFull];
 
 
-contactMatrixPREMElderlyModerate=Table[
-Which[(i>=13 || j>=13),contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]]-0.5*contactPREMwork[[i,j]],
-True,contactPREM[[i,j]]],
+contactMatrixPREMElderlyModerate=
+Table[
+	Which[(i>=13 || j>=13),
+		contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]]-0.5*contactPREMwork[[i,j]],
+	True,
+		contactPREM[[i,j]]],
 {i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
 contactMatrixElderlyModerate=aggregatePREM[contactMatrixPREMElderlyModerate];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Hospital bed needs*)
 
 
@@ -970,7 +988,7 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*ICU needs*)
 
 
@@ -1015,7 +1033,7 @@ FindMaximum[
 Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Mortality*)
 
 
@@ -1038,7 +1056,7 @@ plt=Plot[
 		ImageSize -> 900,
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		FrameTicks->{{0,60,120,180,240},
-		{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
+					{{10000, "10,000 "},{20000, "20,000 "},{30000, "30,000 "},{40000, "40,000 "},{50000, "50,000 "}}}]
 
 
 Export[StringJoin[generated,"elderly_mort_1.65.pdf"],plt]
@@ -1057,69 +1075,13 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyModerate,{t,70}](*calculation fo
 FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Chapter:: *)
-(*Sensitivity analysis (for generate plot, set Boolean to True!)*)
-
-
-runThisSection=True;
-
-
-R0=1.65;
-stepSize=40;
-
-
-hmultInit=0.7;
-hmultEnd=2.3;
-R0init=1.0;
-R0end=2.5;
-maximumList=Table[{0,0,0},{hh,1,1+stepSize*(hmultEnd-hmultInit)},{rr0,1,1+stepSize*(R0end-R0init)}];
-
-
-baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-beta[t_]={baseBeta*contactMatrix};
-sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
-attack=(Flatten[(Table[c[i][t],{i,1,nAge}]/.sol)/.t->300]/ageDistribution);
-If[runThisSection,
-	rr0=1;
-	For[Rt=R0init,Rt<=R0end,Rt+=1/stepSize,
-		hh=1;
-		baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
-		beta[t_]={baseBeta*(Rt/R0)*contactMatrix};
-		For[hmult=hmultInit,hmult<=hmultEnd,hmult+=1/stepSize,
-			sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h*hmult];
-			target[t_]:=Sum[ic[i][t],{i,1,nAge}]/.sol;
-			ifrr=Total[ageDistribution*attack*(1-pA)*(h*hmult)*xi*mu]/Total[ageDistribution*attack];
-			maximumList[[hh,rr0]]={ifrr, Rt, Quiet[FindMaximum[target[t],{t,80}]][[1]]};
-			hh++;
-		];
-		rr0++;
-	]
-]//Timing
-
-
-IFRdistinct=0; maximumDistinct=0;
-distinctVector=maximumList[[1+Round[(1.0-hmultInit)*stepSize],1+Round[(1.65-R0init)*stepSize]]];
-
-
-legendMax=40000;
-plot=Show[ListContourPlot[Flatten[maximumList,1],
-PlotRange->{{0.00289,0.0089},{1.1,2.4}},
-Contours->({#, If[Round[#] == 8000,
-				Directive[Thickness[0.0075], White],
-				Null
-		  ]}& /@ Range[ 0, legendMax, 1000]),
-PlotLegends->BarLegend[{Automatic, {0, legendMax}}, Table[i,{i,0,40000,1000}], LegendMarkerSize->300], 
-ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
-ColorFunctionScaling -> False,
-FrameLabel->{"IFR",Style["\[ScriptCapitalR]",FontSize->35]},LabelStyle->Directive[20, Black]],
-Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}], ImageSize->500]
-
-
-Export[StringJoin[generated,"contourPlot.pdf"],plot]
-
 
 (* ::Chapter:: *)
 (*Seasonality - Plots for Figure 10*)
+
+
+(* ::Section::Closed:: *)
+(*Styling*)
 
 
 fourplotsStyle = {{Thickness[0.01],
@@ -1129,7 +1091,7 @@ ColorData["Crayola"]["VividViolet"]},
 {Thickness[0.01],ColorData["Crayola"]["JungleGreen"]}};
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Seasonality function*)
 
 
@@ -1155,7 +1117,7 @@ inset=Plot[
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.65*)
 
 
@@ -1214,7 +1176,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.32*)
 
 
@@ -1274,7 +1236,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.1*)
 
 
@@ -1341,7 +1303,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 (*Plots for Figure 11*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Initialization *)
 
 
@@ -1389,7 +1351,7 @@ ksi=xi;
 asymp=relInfectA;
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Initial values*)
 
 
@@ -1433,7 +1395,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*First scenario*)
 
 
@@ -1463,7 +1425,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Second scenario*)
 
 
@@ -1503,7 +1465,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Third scenario*)
 
 
@@ -1555,10 +1517,10 @@ Export[StringJoin[generated,"hetero_10k_BP1.47Other1.25Uniform1.32.pdf"],plt]
 
 
 (* ::Chapter:: *)
-(*What if ... impact of implemented measures*)
+(*Impact of implemented measures*)
 
 
-(* ::Subsection:: *)
+(* ::Section::Closed:: *)
 (*Initial values*)
 
 
@@ -1595,8 +1557,8 @@ init1=Flatten[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, 
 (*get appropriate time to fit to the initial phase of the epidemic in Hungary*)
 
 
-(* ::Subsection:: *)
-(*Model*)
+(* ::Section::Closed:: *)
+(*Plot - Figure 12 (left)*)
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp]
@@ -1623,7 +1585,7 @@ plot=Show[
 		LogPlot[
 			{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
 			LabelStyle->Directive[35,Black],
-			PlotRange->{{0,All},{20,All}}, 
+			PlotRange->{{0,All},{20,All}},
 			AxesOrigin->{0.,20.},
 			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 			LabelStyle->Directive[Black, 35],
@@ -1647,11 +1609,92 @@ Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
 (* ::Chapter:: *)
+(*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
+
+
+(* ::Section::Closed:: *)
+(*Data generation for plotting*)
+
+
+runThisSection=False;
+
+
+R0=1.65;
+stepSize=40;
+
+
+hmultInit=0.7;
+hmultEnd=2.3;
+R0init=1.0;
+R0end=2.5;
+maximumList=Table[{0,0,0},{hh,1,1+stepSize*(hmultEnd-hmultInit)},{rr0,1,1+stepSize*(R0end-R0init)}];
+
+
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrix};
+sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+attack=(Flatten[(Table[c[i][t],{i,1,nAge}]/.sol)/.t->300]/ageDistribution);
+If[runThisSection,
+	rr0=1;
+	For[Rt=R0init,Rt<=R0end,Rt+=1/stepSize,
+		hh=1;
+		baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+		beta[t_]={baseBeta*(Rt/R0)*contactMatrix};
+		For[hmult=hmultInit,hmult<=hmultEnd,hmult+=1/stepSize,
+			sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h*hmult];
+			target[t_]:=Sum[ic[i][t],{i,1,nAge}]/.sol;
+			ifrr=Total[ageDistribution*attack*(1-pA)*(h*hmult)*xi*mu]/Total[ageDistribution*attack];
+			maximumList[[hh,rr0]]={ifrr, Rt, Quiet[FindMaximum[target[t],{t,80}]][[1]]};
+			hh++;
+		];
+		rr0++;
+	]
+]//Timing
+
+
+IFRdistinct=0; maximumDistinct=0;
+distinctVector=maximumList[[1+Round[(1.0-hmultInit)*stepSize],1+Round[(1.65-R0init)*stepSize]]];
+
+
+(* ::Section::Closed:: *)
+(*Plot - Figure 12 (right)*)
+
+
+legendMax=40000;
+plot=Show[
+		ListContourPlot[
+			Flatten[maximumList,1],
+				PlotRange->{{0.00289,0.0089},{1.1,2.4}},
+				Contours->({#, If[Round[#] == 8000,
+								Directive[Thickness[0.0075], White],
+								Null
+								]}& /@ Range[ 0, legendMax, 1000]),
+				PlotLegends->BarLegend[{Automatic, {0, legendMax}},
+										Table[i,{i,0,40000,1000}],
+										LegendMarkerSize->300],
+				ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
+				ColorFunctionScaling -> False,
+				FrameLabel->{"IFR",
+							 Style["\[ScriptCapitalR]",FontSize->35]},
+							 LabelStyle->Directive[20, Black]],
+		Graphics[
+			{White, PointSize[0.025], Point[{0.00393415,1.695}]}],
+		ImageSize->500]
+
+
+Export[StringJoin[generated,"contourPlot.pdf"],plot]
+
+
+(* ::Chapter:: *)
 (*Technical appendix*)
 
 
-(* ::Subsection:: *)
+(* ::Section:: *)
 (*Contact matrix - heatmap*)
+
+
+(* ::Subsection::Closed:: *)
+(*Data and functions*)
 
 
 a=ColorData[{"ValentineTones", "Reverse"}];
@@ -1663,7 +1706,14 @@ b=Function[x, (x; x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[cont
 c=Function[x, a[b[x]]];
 
 
-contactMatrix = {{2.85265757236992`,1.0168035823185497`,0.9685513913908559`,3.6394710640997423`,0.7636165091831196`,0.26465811449632815`,0.16478042597673156`},{0.4920476243619219`,5.5591531856025815`,1.3504814369626075`,4.594274005138205`,0.7201168699258064`,0.5079625876327662`,0.2712341242084005`},{0.27685605410253394`,0.7977189385389726`,6.219897755428148`,6.522055041065205`,0.6110526839596531`,0.3066735514563918`,0.14958519657799538`},{0.4176563153332957`,1.0895009251108805`,2.618387301006593`,5.4218448320596275`,0.9159669127390052`,0.43426172617935965`,0.19979273798286082`},{0.26756270229416934`,0.5214145882147075`,0.7490271587498547`,2.7967218055259924`,1.6643410756692467`,0.6027761432448209`,0.17003271688765734`},{0.13848711461847765`,0.5492699095199908`,0.5613957491247491`,1.9801355696025458`,0.9001812106572092`,0.7311654280330745`,0.1455885636741889`},{0.16475717166363135`,0.5604191442260885`,0.5232340130971493`,1.7407548882408745`,0.4852001613787113`,0.2781901927944575`,0.5505304214784429`}};
+contactMatrix =
+{{2.85265757236992`,1.0168035823185497`,0.9685513913908559`,3.6394710640997423`,0.7636165091831196`,0.26465811449632815`,0.16478042597673156`},
+{0.4920476243619219`,5.5591531856025815`,1.3504814369626075`,4.594274005138205`,0.7201168699258064`,0.5079625876327662`,0.2712341242084005`},
+{0.27685605410253394`,0.7977189385389726`,6.219897755428148`,6.522055041065205`,0.6110526839596531`,0.3066735514563918`,0.14958519657799538`},
+{0.4176563153332957`,1.0895009251108805`,2.618387301006593`,5.4218448320596275`,0.9159669127390052`,0.43426172617935965`,0.19979273798286082`},
+{0.26756270229416934`,0.5214145882147075`,0.7490271587498547`,2.7967218055259924`,1.6643410756692467`,0.6027761432448209`,0.17003271688765734`},
+{0.13848711461847765`,0.5492699095199908`,0.5613957491247491`,1.9801355696025458`,0.9001812106572092`,0.7311654280330745`,0.1455885636741889`},
+{0.16475717166363135`,0.5604191442260885`,0.5232340130971493`,1.7407548882408745`,0.4852001613787113`,0.2781901927944575`,0.5505304214784429`}};
 
 
 Transpose[contactMatrix];
@@ -1677,7 +1727,24 @@ AgelabelsH=Thread[{Range[7], {labelfuncH["0-4 "], labelfuncH["5-14 "], labelfunc
 AgelabelsV=Thread[{Range[7], {labelfuncV["0-4"], labelfuncV["5-14"], labelfuncV["15-29"], labelfuncV["30-59"], labelfuncV["60-69"], labelfuncV["70-79"], labelfuncV["80-    "]}}];
 
 
-cntxmatrixplot = Labeled[MatrixPlot[Transpose[contactMatrix], ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)], ColorFunctionScaling->False, PlotLegends -> Automatic, DataReversed -> True, FrameTicks->{AgelabelsV, AgelabelsH}, ImageSize->Scaled[.3]], {Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]}, {Left, Bottom}, Spacings->{2, 1}]
+(* ::Subsection::Closed:: *)
+(*Plot - Figure C1.*)
+
+
+cntxmatrixplot =
+Labeled[
+	MatrixPlot[
+		Transpose[contactMatrix],
+			ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)],
+			ColorFunctionScaling->False,
+			PlotLegends -> Automatic,
+			DataReversed -> True,
+			FrameTicks->{AgelabelsV, AgelabelsH},
+			ImageSize->Scaled[.3]],
+			{Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]},
+			{Left, Bottom},
+			Spacings->{2, 1}
+	]
 
 
 Export[StringJoin[generated,"contactMatrix_heatMap.pdf"],cntxmatrixplot];
