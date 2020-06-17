@@ -121,7 +121,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -148,11 +148,11 @@ ticklabel2={{0,"1.May"},{31+30,"1.July"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+
 ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"},{365,"1.May"},{365+31+30+30+31,"1.Sept"},{365+31+30+30+31+30+31+30+31,"1.Jan"}};
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 6*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Plots for hospitalization*)
 
 
@@ -299,7 +299,7 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Plots for incidence*)
 
 
@@ -418,11 +418,11 @@ plt=Plot[
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 7*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Mortality*)
 
 
@@ -586,7 +586,7 @@ Export[StringJoin[generated,"strong_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Recovered*)
 
 
@@ -751,11 +751,11 @@ FindMaximum[cumulative[[7]]/.sol,{t,70}]//Quiet
 Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Age-specific analysis*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 8*)
 
 
@@ -898,7 +898,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of mea
 FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 9*)
 
 
@@ -1076,7 +1076,7 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for im
 
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Seasonality - Plots for Figure 10*)
 
 
@@ -1295,11 +1295,11 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Spatial heterogeneity*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 11*)
 
 
@@ -1516,7 +1516,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.47Other1.25Uniform1.32.pdf"],plt]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Impact of implemented measures*)
 
 
@@ -1608,7 +1608,7 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
@@ -1616,7 +1616,7 @@ Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 (*Data generation for plotting*)
 
 
-runThisSection=False;
+runThisSection=True;
 
 
 R0=1.65;
@@ -1685,11 +1685,11 @@ plot=Show[
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Technical appendix*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Contact matrix - heatmap*)
 
 
