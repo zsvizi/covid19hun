@@ -1108,11 +1108,11 @@ Contours->({#, If[Round[#] == 8000,
 				Directive[Thickness[0.0075], White],
 				Null
 		  ]}& /@ Range[ 0, legendMax, 1000]),
-PlotLegends->BarLegend[{Automatic, {0, legendMax}}, Table[i,{i,0,40000,1000}], LegendMarkerSize->200], 
+PlotLegends->BarLegend[{Automatic, {0, legendMax}}, Table[i,{i,0,40000,1000}], LegendMarkerSize->300], 
 ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
 ColorFunctionScaling -> False,
-FrameLabel->{"IFR",Style["\[ScriptCapitalR]",FontSize->35]},LabelStyle->Directive[35, Black]],
-Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}], ImageSize->900]
+FrameLabel->{"IFR",Style["\[ScriptCapitalR]",FontSize->35]},LabelStyle->Directive[20, Black]],
+Graphics[{White,PointSize[0.025],Point[{0.00393415,1.695}]}], ImageSize->500]
 
 
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
