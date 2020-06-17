@@ -842,7 +842,7 @@ plt=Plot[
 		FrameLabel->{"days since release",""},
 		ImageSize -> 900,
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-		Background->White
+		Background->White,
 		FrameTicks->{{0,60,120,180,240, 300, 360, 420},
 					{{2000, "2000 "},{4000, "4,000 "},{6000, "6,000 "},{8000, "8,000 "}}}]
 
@@ -1580,24 +1580,27 @@ func=Interpolation[Table[{i-1,hunData[[i]]},{i,1,57}]]
 
 
 (*Cumulative curve*)
-plot=Show[LogPlot[
+plot=Show[
+		LogPlot[
 			{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
-				LabelStyle->Directive[35,Black,Bold], 
-				PlotRange->{{0,All},{20,All}}, 
-				AxesOrigin->{0.,20.},
-				PlotLabel->Style["Cumulative number of cases"],
-				PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]}, Opacity[0]},
-				Filling->{1->{2}},
-				FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
-				Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
-						{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
-		  ListLogPlot[
-			Table[{i-1,hunData[[i]]},{i,1,57}],
-				PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["Blue"]}}],
-		  ListLogPlot[
-			Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
-				PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["Red"]}}],
-		Background->White, 
+			LabelStyle->Directive[35,Black],
+			PlotRange->{{0,All},{20,All}},
+			AxesOrigin->{0.,20.},
+			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
+			LabelStyle->Directive[Black, 35],
+			PlotLabel->Style["Cumulative number of cases"],
+			PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]},Opacity[0]},
+			Filling->{1->{2}},
+			FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
+			Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
+					{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
+		ListLogPlot[Table[{i-1,hunData[[i]]},{i,1,57}],
+			PlotStyle->{{Thickness[0.01],
+						ColorData["Crayola"]["Blue"]}}],
+		ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
+			PlotStyle->{{Thickness[0.01],
+						ColorData["Crayola"]["Red"]}}],
+		Background->White,
 		ImageSize->{1000,500}]
 
 
@@ -1612,7 +1615,7 @@ Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 (*Data generation for plotting*)
 
 
-runThisSection=False;
+runThisSection=True;
 
 
 R0=1.65;
@@ -1662,18 +1665,20 @@ plot=Show[
 			Flatten[maximumList,1],
 				PlotRange->{{0.00289,0.0089},{1.1,2.4}},
 				Contours->({#, If[Round[#] == 8000,
-								Directive[Thickness[0.01], White],
+								Directive[Thickness[0.0075], White],
 								Null
 								]}& /@ Range[ 0, legendMax, 1000]),
-				PlotLegends->BarLegend[{Automatic, {0, legendMax}}, 
-										Table[i,{i,0,40000,1000}]], 
+				PlotLegends->BarLegend[{Automatic, {0, legendMax}},
+										Table[i,{i,0,40000,1000}],
+										LegendMarkerSize->300],
 				ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
 				ColorFunctionScaling -> False,
 				FrameLabel->{"IFR",
-							 Style["\[ScriptCapitalR]",FontSize->15]},
-							 LabelStyle->Directive[Bold, 12, Black]],
+							 Style["\[ScriptCapitalR]",FontSize->35]},
+							 LabelStyle->Directive[20, Black]],
 		Graphics[
-			{White, PointSize[0.025], Point[{0.00393415,1.695}]}]]
+			{White, PointSize[0.025], Point[{0.00393415,1.695}]}],
+		ImageSize->500]
 
 
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
@@ -1700,7 +1705,7 @@ b=Function[x, (x; x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[cont
 c=Function[x, a[b[x]]];
 
 
-contactMatrix = 
+contactMatrix =
 {{2.85265757236992`,1.0168035823185497`,0.9685513913908559`,3.6394710640997423`,0.7636165091831196`,0.26465811449632815`,0.16478042597673156`},
 {0.4920476243619219`,5.5591531856025815`,1.3504814369626075`,4.594274005138205`,0.7201168699258064`,0.5079625876327662`,0.2712341242084005`},
 {0.27685605410253394`,0.7977189385389726`,6.219897755428148`,6.522055041065205`,0.6110526839596531`,0.3066735514563918`,0.14958519657799538`},
@@ -1725,18 +1730,18 @@ AgelabelsV=Thread[{Range[7], {labelfuncV["0-4"], labelfuncV["5-14"], labelfuncV[
 (*Plot - Figure C1.*)
 
 
-cntxmatrixplot = 
+cntxmatrixplot =
 Labeled[
 	MatrixPlot[
-		Transpose[contactMatrix], 
-			ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)], 
-			ColorFunctionScaling->False, 
-			PlotLegends -> Automatic, 
-			DataReversed -> True, 
-			FrameTicks->{AgelabelsV, AgelabelsH}, 
-			ImageSize->Scaled[.3]], 
-			{Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]}, 
-			{Left, Bottom}, 
+		Transpose[contactMatrix],
+			ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)],
+			ColorFunctionScaling->False,
+			PlotLegends -> Automatic,
+			DataReversed -> True,
+			FrameTicks->{AgelabelsV, AgelabelsH},
+			ImageSize->Scaled[.3]],
+			{Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]},
+			{Left, Bottom},
 			Spacings->{2, 1}
 	]
 
