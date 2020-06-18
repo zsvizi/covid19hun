@@ -148,15 +148,15 @@ ticklabel2={{0,"1.May"},{31+30,"1.July"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+
 ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"},{365,"1.May"},{365+31+30+30+31,"1.Sept"},{365+31+30+30+31+30+31+30+31,"1.Jan"}};
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 6*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Plots for hospitalization*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -204,7 +204,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -251,7 +251,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -418,15 +418,15 @@ plt=Plot[
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 7*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Mortality*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -479,7 +479,7 @@ Export[StringJoin[generated,"weak_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -533,7 +533,7 @@ Export[StringJoin[generated,"moderate_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -586,11 +586,11 @@ Export[StringJoin[generated,"strong_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Recovered*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -643,7 +643,7 @@ Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -697,7 +697,7 @@ Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -1079,7 +1079,7 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for im
 (*Seasonality - Plots for Figure 10*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Styling*)
 
 
@@ -1090,7 +1090,7 @@ ColorData["Crayola"]["VividViolet"]},
 {Thickness[0.01],ColorData["Crayola"]["JungleGreen"]}};
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Seasonality function*)
 
 
@@ -1120,7 +1120,7 @@ inset=Plot[
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.65*)
 
 
@@ -1179,7 +1179,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.32*)
 
 
@@ -1239,7 +1239,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*R = 1.1*)
 
 
@@ -1302,7 +1302,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 (*Spatial heterogeneity*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 11*)
 
 
@@ -1398,7 +1398,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*First scenario*)
 
 
@@ -1428,7 +1428,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Second scenario*)
 
 
@@ -1468,7 +1468,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Third scenario*)
 
 
@@ -1615,7 +1615,7 @@ Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Data generation for plotting*)
 
 
@@ -1659,7 +1659,7 @@ IFRdistinct=0; maximumDistinct=0;
 distinctVector=maximumList[[1+Round[(1.0-hmultInit)*stepSize],1+Round[(1.65-R0init)*stepSize]]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plot - Figure 12 (right)*)
 
 
