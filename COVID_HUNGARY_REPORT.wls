@@ -121,7 +121,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -1075,7 +1075,7 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyModerate,{t,70}](*calculation fo
 FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Seasonality - Plots for Figure 10*)
 
 
@@ -1298,7 +1298,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Spatial heterogeneity*)
 
 
@@ -1611,7 +1611,7 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
