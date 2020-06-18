@@ -121,7 +121,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 initialValuesImod=Round[modelGenerator[beta, init, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h][[1]]/.sol/.t->24][[1,1]]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Scenarios post-lockdown*)
 
 
@@ -148,15 +148,15 @@ ticklabel2={{0,"1.May"},{31+30,"1.July"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+
 ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"},{365,"1.May"},{365+31+30+30+31,"1.Sept"},{365+31+30+30+31+30+31+30+31,"1.Jan"}};
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plots for Figure 6*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Plots for hospitalization*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
@@ -177,7 +177,7 @@ plt=Plot[
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black,35],
 		AxesStyle->Directive[Thickness[0.005]],
-		PlotLabel->Style["Weak control, R = 1.65\nTotal hospital bed and ICU need"],
+		PlotLabel->Style["Weak control, \[ScriptCapitalR] = 1.65\nTotal hospital bed and ICU need"],
 		PlotStyle->twoPlotsStylehosp,
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
@@ -204,7 +204,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.32*)
 
 
@@ -227,7 +227,7 @@ plt=Plot[
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"days since release",""},
-		PlotLabel->Style["Moderate control, R = 1.32\nTotal hospital bed and ICU need"],
+		PlotLabel->Style["Moderate control, \[ScriptCapitalR] = 1.32\nTotal hospital bed and ICU need"],
 		PlotStyle->twoPlotsStylehosp,
 		Background->White,
 		FrameTicks->{Table[i,{i,0,500,100}],
@@ -251,7 +251,7 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.1*)
 
 
@@ -274,7 +274,7 @@ plt=Plot[
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"days since release",""},
-		PlotLabel->Style["Strong control, R = 1.1\nTotal hospital bed and ICU need"],
+		PlotLabel->Style["Strong control, \[ScriptCapitalR] = 1.1\nTotal hospital bed and ICU need"],
 		PlotStyle->twoPlotsStylehosp,
 		PlotLegends->Placed[
 					LineLegend[{"hospitalized\nindividuals","individuals\non ICU"},
@@ -418,15 +418,15 @@ plt=Plot[
 Export[StringJoin[generated,"strong_inc.pdf"],plt]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plots for Figure 7*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Mortality*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
@@ -442,7 +442,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 plt=Plot[
 	Evaluate[mortalityCumulative/.sol],{t,0,200},
-		PlotLabel->Style["Mortality\nR=1.65"],
+		PlotLabel->Style["Mortality\n\[ScriptCapitalR]=1.65"],
 		PlotRange->{0,All},
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -479,7 +479,7 @@ Export[StringJoin[generated,"weak_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.32*)
 
 
@@ -496,7 +496,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[mortalityCumulative/.sol],{t,0,360},
 	PlotRange->{0,All},
-	PlotLabel->Style["Mortality\nR=1.32"],
+	PlotLabel->Style["Mortality\n\[ScriptCapitalR]=1.32"],
 	PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 	PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 				{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -533,7 +533,7 @@ Export[StringJoin[generated,"moderate_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.1*)
 
 
@@ -550,7 +550,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[mortalityCumulative/.sol],{t,0,630},
 		PlotRange->{0,All},
-		PlotLabel->Style["Mortality\nR=1.1"],
+		PlotLabel->Style["Mortality\n\[ScriptCapitalR]=1.1"],
 		PlotRangePadding->0,
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -586,11 +586,11 @@ Export[StringJoin[generated,"strong_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Recovered*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
@@ -607,7 +607,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[cumulative/.sol],{t,0,200},
 		PlotRange->{0,All},
-		PlotLabel->Style["Recovered\nR=1.65"],
+		PlotLabel->Style["Recovered\n\[ScriptCapitalR]=1.65"],
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
 					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
@@ -643,7 +643,7 @@ Export[StringJoin[generated,"weak_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.32*)
 
 
@@ -660,7 +660,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[cumulative/.sol],{t,0,360},
 		PlotRange->{0,All},
-		PlotLabel->Style["Recovered\nR=1.32"],
+		PlotLabel->Style["Recovered\n\[ScriptCapitalR]=1.32"],
 		PlotRangePadding->0,
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -697,7 +697,7 @@ Export[StringJoin[generated,"moderate_cumu.pdf"],plt]
 FindMaximum[cumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.1*)
 
 
@@ -714,7 +714,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[cumulative/.sol],{t,0,630},
 		PlotRange->{0,All},
-		PlotLabel->Style["Recovered\nR=1.1"],
+		PlotLabel->Style["Recovered\n\[ScriptCapitalR]=1.1"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -1075,11 +1075,11 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyModerate,{t,70}](*calculation fo
 FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Seasonality - Plots for Figure 10*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Styling*)
 
 
@@ -1090,7 +1090,7 @@ ColorData["Crayola"]["VividViolet"]},
 {Thickness[0.01],ColorData["Crayola"]["JungleGreen"]}};
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Seasonality function*)
 
 
@@ -1106,6 +1106,10 @@ inset=Plot[
 			PlotLabel->Style["Seasonality function", 35],
 			Frame->{{True, False},{True, False}},
 			FrameStyle-> Directive[Thickness[0.005], 35],
+			PlotLegends -> Placed[LineLegend[{"c = 0", "c = 0.1", "c = 0.2", "c = 0.3"},
+								LegendMarkerSize->{40,12},
+								LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]], 
+								{Scaled[{0.85, 0.27}], {0.5, 0.5}}],
 			FrameLabel->{"","rel. transmissibility"},
 			FrameTicks->{{{0,"December 1"},{31+31+28+31+30+31,"June 1"},{366,"December 1"}},
 						{0.0,0.1,0.2,0.3,0.4,0.5,0.65,{0.7, "0.7 "},{0.8, "0.8 "},{0.9, "    0.9 "},{1.0, "1 "}}},
@@ -1116,7 +1120,7 @@ inset=Plot[
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*R = 1.65*)
 
 
@@ -1153,7 +1157,7 @@ plt=Plot[
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"","no. of infected"},
-		PlotLabel->Style["Epidemic curve with seasonality, R = 1.65"],
+		PlotLabel->Style["Epidemic curve with seasonality, \[ScriptCapitalR] = 1.65"],
 		PlotStyle->fourplotsStyle,
 		PlotRange->All,
 		FrameTicks->{{{0,"May 1"},{61,"July 1"},{123, "Sept. 1"},{184, "Nov. 1"},{245,"Jan. 1"},300},
@@ -1175,7 +1179,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*R = 1.32*)
 
 
@@ -1207,7 +1211,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t],{i,1,nAge}]/.solP03]},{t,0,400},
 		LabelStyle->Directive[Black, 30],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
-		PlotLabel->Style["Epidemic curve with seasonality, R = 1.32"],
+		PlotLabel->Style["Epidemic curve with seasonality, \[ScriptCapitalR] = 1.32"],
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"","no. of infected"},
@@ -1235,7 +1239,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*R = 1.1*)
 
 
@@ -1271,7 +1275,7 @@ plt=Plot[
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"","no. of infected"},
-		PlotLabel->Style["Epidemic curve with seasonality, R = 1.1"],
+		PlotLabel->Style["Epidemic curve with seasonality, \[ScriptCapitalR] = 1.1"],
 		AxesLabel->{"time","number of infected individuals"},
 		PlotStyle->fourplotsStyle,
 		PlotRange->All,
@@ -1294,11 +1298,11 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Spatial heterogeneity*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plots for Figure 11*)
 
 
@@ -1394,7 +1398,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*First scenario*)
 
 
@@ -1404,7 +1408,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style[""],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nNo travel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1424,7 +1428,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Second scenario*)
 
 
@@ -1444,7 +1448,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style[""],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1464,7 +1468,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Third scenario*)
 
 
@@ -1495,7 +1499,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style[""],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) \[NotEqual] \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1607,15 +1611,15 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Data generation for plotting*)
 
 
-runThisSection=True;
+runThisSection=False;
 
 
 R0=1.65;
@@ -1655,7 +1659,7 @@ IFRdistinct=0; maximumDistinct=0;
 distinctVector=maximumList[[1+Round[(1.0-hmultInit)*stepSize],1+Round[(1.65-R0init)*stepSize]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plot - Figure 12 (right)*)
 
 
