@@ -409,6 +409,10 @@ plt=Plot[
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"days since release",""},
 		PlotStyle->twoPlotsStyle,
+		PlotLegends->Placed[
+					LineLegend[{"incidence"},
+					LegendMarkerSize->{40,12},
+					LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
 		Background->White,
 		FrameTicks->{Table[i,{i,0,500,100}],
 					{{2000,"2,000 "},{4000,"4,000 "},{6000,"6,000 "},{8000,"8,000 "},{10000,"10,000 "}}},
@@ -422,11 +426,11 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*Plots for Figure 7*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Mortality*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
@@ -898,7 +902,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of mea
 FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plots for Figure 9*)
 
 
@@ -1587,23 +1591,23 @@ func=Interpolation[Table[{i-1,hunData[[i]]},{i,1,57}]]
 plot=Show[
 		LogPlot[
 			{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
-			LabelStyle->Directive[35,Black],
+			LabelStyle->Directive[25,Black],
 			PlotRange->{{0,All},{20,All}},
 			AxesOrigin->{0.,20.},
-			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
-			LabelStyle->Directive[Black, 35],
+			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 25],
+			LabelStyle->Directive[Black, 25],
 			PlotLabel->Style["Cumulative number of cases"],
-			PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]},Opacity[0]},
+			PlotStyle->{{Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},Opacity[0]},
 			Filling->{1->{2}},
-			FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
+			FillingStyle->Directive[RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Opacity[0.25]],
 			Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
-					{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
+					{{1,"1 "},{10,"10 "},{100,"100 "},{1000,"1000 "},{10000,"10000 "},{100000,"100000 "},{1000000,"1000000 "},{10000000,"10000000 "}}}],
 		ListLogPlot[Table[{i-1,hunData[[i]]},{i,1,57}],
 			PlotStyle->{{Thickness[0.01],
-						ColorData["Crayola"]["Blue"]}}],
+						RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}}],
 		ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
 			PlotStyle->{{Thickness[0.01],
-						ColorData["Crayola"]["Red"]}}],
+						RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}}],
 		Background->White,
 		ImageSize->{1000,500}]
 
@@ -1667,7 +1671,7 @@ legendMax=40000;
 plot=Show[
 		ListContourPlot[
 			Flatten[maximumList,1],
-				PlotRange->{{0.00289,0.0089},{1.1,2.4}},
+				PlotRange->{{0.00289,0.0085},{1.1,2.4}},
 				Contours->({#, If[Round[#] == 8000,
 								Directive[Thickness[0.0075], White],
 								Null
@@ -1681,8 +1685,10 @@ plot=Show[
 							 Style["\[ScriptCapitalR]",FontSize->35]},
 							 LabelStyle->Directive[20, Black]],
 		Graphics[
-			{White, PointSize[0.025], Point[{0.00393415,1.695}]}],
-		ImageSize->500]
+			{White, PointSize[0.025], Point[{0.00393415,1.685}]}],
+		ImageSize->500,
+		Ticks->{{0.004},Table[{i, StringJoin[ToString[i], " "]}, {i,1.2, 2.4, 0.2}]}
+		]
 
 
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
