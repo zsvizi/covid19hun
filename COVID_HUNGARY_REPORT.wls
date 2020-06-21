@@ -195,13 +195,19 @@ Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 (*Calculations for Table 2*)
 
 
-FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}]
+FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,80}]
 
 
-FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,70}]
+
+
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -251,6 +257,12 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
+
+
 (* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
@@ -297,6 +309,12 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
 FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
+
+
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
 
 
 (* ::Subsection::Closed:: *)
@@ -426,11 +444,11 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*Plots for Figure 7*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Mortality*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -481,6 +499,24 @@ Export[StringJoin[generated,"weak_mort.pdf"],plt]
 
 
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
+table[pairs_]:=Row[{"Age groups: "Row[Flatten[pairs]]}]
+
+
+legend = SwatchLegend[
+{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`],
+ RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`],
+ RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`],
+ RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`],
+ RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`],
+ RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`],
+ RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]},
+ {" 0-4   ", " 5-14   ", " 15-29   ", " 30-59   "," 60-69   ", " 70-79   ", " 80+"},
+ LegendLayout->table,LabelStyle->{FontSize->20},LegendMarkerSize->{20,20}]
+
+
+Export[StringJoin[generated,"legend_stacked2.pdf"], legend]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -828,6 +864,15 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
+legend = LineLegend[
+{Directive[Thickness[0.05],twoPlotsStyle[[1,2]]],Directive[Thickness[0.05],twoPlotsStyle[[2,2]]]},
+ {"General 25% contact reduction", "School closure in addition to the 25% contact reduction"},
+ LabelStyle->{FontSize->20},LegendMarkerSize->40]
+
+
+Export[StringJoin[generated,"legend_school.pdf"], legend]
+
+
 (* ::Subsection::Closed:: *)
 (*ICU needs*)
 
@@ -902,7 +947,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for impact of mea
 FindMaximum[mortalityCumulative[[7]]/.solschool,{t,70}](*calculation for impact of measure*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 9*)
 
 
@@ -990,6 +1035,17 @@ Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyModerate],{t,60}]//Quiet
 
 FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
+
+
+legend = LineLegend[
+{Directive[Thickness[0.05],ColorData["Crayola"]["OuterSpace"]],
+Directive[Thickness[0.05],ColorData["Crayola"]["Silver"]],
+Directive[Thickness[0.05],ColorData["Crayola"]["Periwinkle"]]},
+ {"General 25% contact reduction (weak control)", "50% contact reduction for elders outside of households + weak control", "100% contact reduction for elders outside of household + weak control"},
+ LabelStyle->{FontSize->20},LegendMarkerSize->40]
+
+
+Export[StringJoin[generated,"legend_old_age.pdf"], legend]
 
 
 (* ::Subsection::Closed:: *)
@@ -1430,6 +1486,18 @@ plt=Plot[
 
 
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
+
+
+legend = LineLegend[
+{Directive[Dashed, Thickness[0.05],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]],
+Directive[Dashed, Thickness[0.05],ColorData["Crayola"]["Brown"]],
+Directive[Thickness[0.05],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]],
+Directive[Thickness[0.05],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]]},
+ {" uniform model   ", " aggregated two-patch model   ", " Budapest and Pest county   ", " other regions"},
+ LabelStyle->{FontSize->20},LegendMarkerSize->40,LegendLayout->"Row"]
+
+
+Export[StringJoin[generated,"legend_patch.pdf"], legend]
 
 
 (* ::Subsection::Closed:: *)
