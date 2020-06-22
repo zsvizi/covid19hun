@@ -1358,15 +1358,15 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Spatial heterogeneity*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Plots for Figure 11*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Initialization *)
 
 
@@ -1458,7 +1458,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*First scenario*)
 
 
@@ -1500,7 +1500,7 @@ Directive[Thickness[0.05],RGBColor[0.9568627450980391`,0.7607843137254902`,0.325
 Export[StringJoin[generated,"legend_patch.pdf"], legend]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Second scenario*)
 
 
@@ -1540,7 +1540,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Third scenario*)
 
 
@@ -1683,11 +1683,11 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Data generation for plotting*)
 
 
