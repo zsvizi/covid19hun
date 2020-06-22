@@ -1358,15 +1358,15 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP02],{t,150}]//Quiet
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Spatial heterogeneity*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Plots for Figure 11*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Initialization *)
 
 
@@ -1458,7 +1458,7 @@ sol400k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gamma
 sumOfI400k[t_]:=Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,patch},{i,1,nAge}]/.sol400k];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*First scenario*)
 
 
@@ -1468,7 +1468,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nNo travel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\) ]\) = 1.32\nNo travel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1500,7 +1500,7 @@ Directive[Thickness[0.05],RGBColor[0.9568627450980391`,0.7607843137254902`,0.325
 Export[StringJoin[generated,"legend_patch.pdf"], legend]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Second scenario*)
 
 
@@ -1520,7 +1520,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)] = 1.32\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1540,7 +1540,7 @@ plt=Plot[
 Export[StringJoin[generated,"hetero_10k_BP1.32Country1.32Uniform1.32.pdf"],plt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Third scenario*)
 
 
@@ -1571,7 +1571,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) \[NotEqual] \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = 1.47, \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)] = 1.25\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1683,11 +1683,11 @@ plot=Show[
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Sensitivity analysis (for generate this plot, set Boolean to True!)*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Data generation for plotting*)
 
 
