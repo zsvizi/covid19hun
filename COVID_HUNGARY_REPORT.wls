@@ -796,6 +796,16 @@ Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
 (* ::Section::Closed:: *)
+(*Styling*)
+
+
+threePlotsStyle={
+{Thickness[0.01],ColorData["Crayola"]["Orange"]},
+{Thickness[0.01],ColorData["Crayola"]["Brown"]},
+{Thickness[0.01],RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}};
+
+
+(* ::Section::Closed:: *)
 (*Plots for Figure 8*)
 
 
@@ -811,6 +821,15 @@ Table[
 	True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
 {i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
 contactMatrixSchool=aggregatePREM[contactMatrixPREMSchool];
+
+contactMatrixPREMPessimistic=
+Table[
+	Which[
+	(4>=i>=2 || 4>=j>=2),
+			contactPREM[[i,j]]-contactPREMschool[[i,j]]+0.25*contactPREMhome[[i,j]],
+	True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
+{i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
+contactMatrixSchool2=aggregatePREM[contactMatrixPREMPessimistic];
 
 
 (* ::Subsection::Closed:: *)
@@ -830,11 +849,17 @@ beta[t_]={baseBeta*contactMatrixSchool};
 solschool=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrixSchool2};
+solschool2=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
 plt=Plot[
 	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
-	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool,
+	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool2},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}}, 
@@ -865,8 +890,8 @@ Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
 legend = LineLegend[
-{Directive[Thickness[0.05],twoPlotsStyle[[1,2]]],Directive[Thickness[0.05],twoPlotsStyle[[2,2]]]},
- {"General 25% contact reduction", "School closure in addition to the 25% contact reduction"},
+{Directive[Thickness[0.05],threePlotsStyle[[1,2]]],Directive[Thickness[0.05],threePlotsStyle[[3,2]]],Directive[Thickness[0.05],threePlotsStyle[[2,2]]]},
+ {"General 25% contact reduction", "School closure in addition to the 25% contact reduction (pessimistic approach)","School closure in addition to the 25% contact reduction (optimistic approach)"},
  LabelStyle->{FontSize->20},LegendMarkerSize->40]
 
 
@@ -879,9 +904,10 @@ Export[StringJoin[generated,"legend_school.pdf"], legend]
 
 plt=Plot[
 	{Sum[ic[i][t],{i,1,nAge}]/.sol, 
-	Sum[ic[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+	Sum[ic[i][t],{i,1,nAge}]/.solschool,
+	Sum[ic[i][t],{i,1,nAge}]/.solschool2},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}},
@@ -917,9 +943,10 @@ Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact o
 
 plt=Plot[
 	{Evaluate[Total[mortalityCumulative[[7]]]/.sol],
-	Evaluate[Total[mortalityCumulative[[7]]]/.solschool]},{t,0,250},
+	Evaluate[Total[mortalityCumulative[[7]]]/.solschool],
+	Evaluate[Total[mortalityCumulative[[7]]]/.solschool2]},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}},
