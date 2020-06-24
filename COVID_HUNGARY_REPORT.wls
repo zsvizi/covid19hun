@@ -1932,23 +1932,24 @@ Thread[
 
 
 (* ::Subsection::Closed:: *)
-(*Contact matrix - heatmap*)
+(*Contact matrix - heat map*)
 
 
 cntxmatrixplot =
-Labeled[
-	MatrixPlot[
-		Transpose[contactMatrix],
-			ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])])],
-			ColorFunctionScaling->False,
-			PlotLegends -> Automatic,
-			DataReversed -> True,
-			FrameTicks->{AgelabelsV, AgelabelsH},
-			ImageSize->Scaled[.3]],
-			{Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]},
-			{Left, Bottom},
-			Spacings->{2, 1}
-	]
+MatrixPlot[
+	Transpose[contactMatrix],
+		ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])])],
+		ColorFunctionScaling->False,
+		PlotLegends -> Automatic,
+		LabelStyle->Directive[FontSize->15],
+		DataReversed -> True,
+		FrameTicks->{AgelabelsV, AgelabelsH},
+		ImageSize->500,
+		FrameLabel->{Style["Age of contact", 20], Style["Age of individual", 20]}
+]
 
 
 Export[StringJoin[generated,"contactMatrix_heatMap.pdf"],cntxmatrixplot];
+
+
+PlotLabel
