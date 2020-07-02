@@ -139,8 +139,15 @@ twoPlotsStylehosp={
 {Thickness[0.01],ColorData["Crayola"]["Red"]}};
 
 
-ageStructureLegend=LineLegend[{"0-4","5-14","15-29","30-59","60-69","70-79","80+"}, LegendLayout->"ReversedColumn", LegendMarkerSize->{40,12},LegendMarkers -> 
-    Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]];
+ageStructureLegend=
+LineLegend[
+{"0-4","5-14","15-29","30-59","60-69","70-79","80+"}, 
+LegendLayout->"ReversedColumn", 
+LegendMarkerSize->{40,12},
+LegendMarkers -> Graphics[{AbsoluteThickness[3000], 
+						  Line[{{-100, 100}, {0, 0}}]
+						 }]
+];
 
 
 ticklabel1={{0,"1.May"},{31,"1.June"},{31+30,"1.July"},{31+30+31,"1.Aug"},{31+30+31+31,"1.Sept"},{31+30+31+31+30,"1.Oct"},{31+30+31+31+30+31,"1.Nov"},{31+30+31+31+30+31+30,"1.Dec"},{31+30+31+31+30+31+30+31,"1.Jan"}};
@@ -195,13 +202,19 @@ Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 (*Calculations for Table 2*)
 
 
-FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,70}]
+FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,70}]
+FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,80}]
 
 
-FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,30}]
+FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,70}]
+
+
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -251,6 +264,12 @@ FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]//Quiet
 FindRoot[Sum[ic[i][t],{i,1,nAge}]-1000/.sol,{t,60}]
 
 
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
+
+
 (* ::Subsubsection::Closed:: *)
 (*R = 1.1*)
 
@@ -297,6 +316,12 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
 FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
+
+
+Sum[d[i][t],{i,1,nAge}]/.sol/.t->500
+
+
+(Sum[r[i][t],{i,1,nAge}]/.sol/.t->500)/Total[ageDistribution]
 
 
 (* ::Subsection::Closed:: *)
@@ -409,6 +434,10 @@ plt=Plot[
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"days since release",""},
 		PlotStyle->twoPlotsStyle,
+		PlotLegends->Placed[
+					LineLegend[{"incidence"},
+					LegendMarkerSize->{40,12},
+					LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]],{0.75, 0.6}],
 		Background->White,
 		FrameTicks->{Table[i,{i,0,500,100}],
 					{{2000,"2,000 "},{4000,"4,000 "},{6000,"6,000 "},{8000,"8,000 "},{10000,"10,000 "}}},
@@ -477,6 +506,37 @@ Export[StringJoin[generated,"weak_mort.pdf"],plt]
 
 
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}](*calculation for Table 2*)
+
+
+table[pairs_]:=Row[{"Age groups: "Row[Flatten[pairs]]}]
+
+
+legend = 
+SwatchLegend[
+{
+	RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`],
+	RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`],
+	RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`],
+	RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`],
+	RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`],
+	RGBColor[0.1764705882352941`,0.2823529411764706`,0.39215686274509803`],
+	RGBColor[0.06666666666666667`,0.06666666666666667`,0.09803921568627451`]},
+{
+	" 0-4   ", 
+	" 5-14   ", 
+	" 15-29   ", 
+	" 30-59   ",
+	" 60-69   ", 
+	" 70-79   ", 
+	" 80+"
+},
+LegendLayout->table,
+LabelStyle->{FontSize->20},
+LegendMarkerSize->{20,20}
+]
+
+
+Export[StringJoin[generated,"legend_stacked2.pdf"], legend]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -756,6 +816,16 @@ Export[StringJoin[generated,"strong_cumu.pdf"],plt]
 
 
 (* ::Section::Closed:: *)
+(*Styling*)
+
+
+threePlotsStyle={
+{Thickness[0.01],ColorData["Crayola"]["Orange"]},
+{Thickness[0.01],ColorData["Crayola"]["Brown"]},
+{Thickness[0.01],RGBColor[0.8823529411764706`,0.2549019607843137`,0.07058823529411765`]}};
+
+
+(* ::Section::Closed:: *)
 (*Plots for Figure 8*)
 
 
@@ -767,10 +837,24 @@ contactMatrixPREMSchool=
 Table[
 	Which[
 	(4>=i>=2 || 4>=j>=2),
-			contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]],
-	True,contactPREM[[i,j]]-contactPREMschool[[i,j]]],
+		contactPREM[[i,j]]-contactPREMschool[[i,j]]-0.5*contactPREMother[[i,j]],
+	True,
+		contactPREM[[i,j]]-contactPREMschool[[i,j]]
+	],
 {i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
 contactMatrixSchool=aggregatePREM[contactMatrixPREMSchool];
+
+
+contactMatrixPREMPessimistic=
+Table[
+	Which[
+	(4>=i>=2 || 4>=j>=2),
+		contactPREM[[i,j]]-contactPREMschool[[i,j]]+0.25*contactPREMhome[[i,j]],
+	True,
+		contactPREM[[i,j]]-contactPREMschool[[i,j]]
+	],
+{i,1,Length[contactPREM]},{j,1,Length[contactPREM]}];
+contactMatrixSchool2=aggregatePREM[contactMatrixPREMPessimistic];
 
 
 (* ::Subsection::Closed:: *)
@@ -790,11 +874,17 @@ beta[t_]={baseBeta*contactMatrixSchool};
 solschool=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
 
 
+baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
+beta[t_]={baseBeta*contactMatrixSchool2};
+solschool2=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistribution, mu, ksi, asymp, pA, h];
+
+
 plt=Plot[
 	{Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol, 
-	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool,
+	Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool2},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}}, 
@@ -824,15 +914,34 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solschool],{t,100}]
 
 
+legend = 
+LineLegend[
+{
+	Directive[Thickness[0.05],threePlotsStyle[[1,2]]],
+	Directive[Thickness[0.05],threePlotsStyle[[3,2]]],
+	Directive[Thickness[0.05],threePlotsStyle[[2,2]]]
+},
+{
+	"General 25% contact reduction", 
+	"School closure in addition to the 25% contact reduction (pessimistic approach)",
+	"School closure in addition to the 25% contact reduction (optimistic approach)"
+},
+LabelStyle->{FontSize->20},LegendMarkerSize->40]
+
+
+Export[StringJoin[generated,"legend_school.pdf"], legend]
+
+
 (* ::Subsection::Closed:: *)
 (*ICU needs*)
 
 
 plt=Plot[
 	{Sum[ic[i][t],{i,1,nAge}]/.sol, 
-	Sum[ic[i][t],{i,1,nAge}]/.solschool},{t,0,250},
+	Sum[ic[i][t],{i,1,nAge}]/.solschool,
+	Sum[ic[i][t],{i,1,nAge}]/.solschool2},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}},
@@ -868,9 +977,10 @@ Evaluate[Sum[ic[i][t],{i,1,nAge}]/.solschool],{t,100}](*calculation for impact o
 
 plt=Plot[
 	{Evaluate[Total[mortalityCumulative[[7]]]/.sol],
-	Evaluate[Total[mortalityCumulative[[7]]]/.solschool]},{t,0,250},
+	Evaluate[Total[mortalityCumulative[[7]]]/.solschool],
+	Evaluate[Total[mortalityCumulative[[7]]]/.solschool2]},{t,0,250},
 		PlotRange->{0,All},
-		PlotStyle->twoPlotsStyle,
+		PlotStyle->threePlotsStyle,
 		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
 		LabelStyle->Directive[Black, 35],
 		Frame->{{True, False},{True, False}},
@@ -988,6 +1098,25 @@ FindMaximum[
 Evaluate[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.solElderlyFull],{t,60}]//Quiet
 
 
+legend = 
+LineLegend[
+{
+	Directive[Thickness[0.05],ColorData["Crayola"]["OuterSpace"]],
+	Directive[Thickness[0.05],ColorData["Crayola"]["Silver"]],
+	Directive[Thickness[0.05],ColorData["Crayola"]["Periwinkle"]]
+},
+{
+	"General 25% contact reduction (weak control)", 
+	"50% contact reduction for elders outside of households + weak control", 
+	"100% contact reduction for elders outside of household + weak control"
+},
+LabelStyle->{FontSize->20},
+LegendMarkerSize->40]
+
+
+Export[StringJoin[generated,"legend_old_age.pdf"], legend]
+
+
 (* ::Subsection::Closed:: *)
 (*ICU needs*)
 
@@ -1076,21 +1205,25 @@ FindMaximum[mortalityCumulative[[7]]/.solElderlyFull,{t,70}](*calculation for im
 
 
 (* ::Chapter::Closed:: *)
-(*Seasonality - Plots for Figure 10*)
+(*Seasonality*)
 
 
 (* ::Section::Closed:: *)
 (*Styling*)
 
 
-fourplotsStyle = {{Thickness[0.01],
-ColorData["Crayola"]["VividViolet"]},
+fourplotsStyle = {
+{Thickness[0.01],ColorData["Crayola"]["VividViolet"]},
 {Thickness[0.01],ColorData["Crayola"]["VioletBlue"]},
 {Thickness[0.01],ColorData["Crayola"]["BlueGreen"]},
 {Thickness[0.01],ColorData["Crayola"]["JungleGreen"]}};
 
 
 (* ::Section::Closed:: *)
+(*Plots for Figure 10*)
+
+
+(* ::Subsection::Closed:: *)
 (*Seasonality function*)
 
 
@@ -1108,11 +1241,13 @@ inset=Plot[
 			FrameStyle-> Directive[Thickness[0.005], 35],
 			PlotLegends -> Placed[LineLegend[{"c = 0", "c = 0.1", "c = 0.2", "c = 0.3"},
 								LegendMarkerSize->{40,12},
-								LegendMarkers->Graphics[{AbsoluteThickness[3000], Line[{{-100, 100}, {0, 0}}]}]], 
+								LegendMarkers->Graphics[{AbsoluteThickness[3000], 
+														 Line[{{-100, 100}, {0, 0}}]}]
+								], 
 								{Scaled[{0.85, 0.27}], {0.5, 0.5}}],
 			FrameLabel->{"","rel. transmissibility"},
 			FrameTicks->{{{0,"December 1"},{31+31+28+31+30+31,"June 1"},{366,"December 1"}},
-						{0.0,0.1,0.2,0.3,0.4,0.5,0.65,{0.7, "0.7 "},{0.8, "0.8 "},{0.9, "    0.9 "},{1.0, "1 "}}},
+						 {0.0,0.1,0.2,0.3,0.4,0.5,0.65,{0.7, "0.7 "},{0.8, "0.8 "},{0.9, "    0.9 "},{1.0, "1 "}}},
 			ImageSize->900,
 			Background->White]
 
@@ -1120,7 +1255,7 @@ inset=Plot[
 Export[StringJoin[generated,"seas_inset.pdf"],inset]
 
 
-(* ::Section::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*R = 1.65*)
 
 
@@ -1179,7 +1314,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*R = 1.32*)
 
 
@@ -1239,7 +1374,7 @@ FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i
 FindMaximum[Evaluate[Sum[ia1[i][t]+is1[i][t]+ia2[i][t]+is2[i][t]+ia3[i][t]+is3[i][t]+ip[i][t]+icr[i][t],{i,1,nAge}]/.solP03],{t,150}]
 
 
-(* ::Section::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*R = 1.1*)
 
 
@@ -1408,7 +1543,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.sol400k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.sol400k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nNo travel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\) ]\) = 1.32\nNo travel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1426,6 +1561,27 @@ plt=Plot[
 
 
 Export[StringJoin[generated,"hetero_400k_BP1.32Country1.32Uniform1.32.pdf"],plt]
+
+
+legend = 
+LineLegend[
+{
+	Directive[Dashed, Thickness[0.05],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]],
+	Directive[Dashed, Thickness[0.05],ColorData["Crayola"]["Brown"]],
+	Directive[Thickness[0.05],RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]],
+	Directive[Thickness[0.05],RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]]},
+{
+	" uniform model   ", 
+	" aggregated two-patch model   ", 
+	" Budapest and Pest county   ", 
+	" other regions"
+},
+LabelStyle->{FontSize->20},
+LegendMarkerSize->40,
+LegendLayout->"Row"]
+
+
+Export[StringJoin[generated,"legend_patch.pdf"], legend]
 
 
 (* ::Subsection::Closed:: *)
@@ -1448,7 +1604,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.solequalR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.solequalR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)] = 1.32\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1484,7 +1640,13 @@ beta[t_]={baseBetaBp*contactMatrix, baseBetaother*contactMatrix}; (*special for 
 
 
 travelBpother=10000;
-travel=Table[Which[p1==p2,0,True,travelBpother/popPatch[[p1]]],{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
+travel=
+Table[
+	Which[
+		p1==p2, 0,
+		True, travelBpother/popPatch[[p1]]
+	],
+{p1,1,patch},{p2,1,patch},{k,1,nAge}]; (*special for 2-patch model*)
 
 
 soldifferentR10k=modelSolver[patch, travel, beta, initPatch, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, ageDistributionpatch, mu, ksi, asymp, pA, h];
@@ -1499,7 +1661,7 @@ plt=Plot[
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,1,1},{i,1,nAge}]/.soldifferentR10k],
 	Evaluate[Sum[ia1[p,i][t]+is1[p,i][t]+ia2[p,i][t]+is2[p,i][t]+ia3[p,i][t]+is3[p,i][t]+ip[p,i][t],{p,patch,patch},{i,1,nAge}]/.soldifferentR10k]},{t,0,250},
 		PlotRange->{0, All},
-		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) \[NotEqual] \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)]\)\nTravel restrictions"],
+		PlotLabel->Style["\!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(Budapest\)]\) = 1.47, \!\(\*SubscriptBox[\(\[ScriptCapitalR]\), \(other\)] = 1.25\)\nTravel restrictions"],
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
 		AxesStyle->Directive[Thickness[0.005]],
@@ -1574,38 +1736,53 @@ sol=modelSolver[beta, init1, alpha, alpha2, gammaa, gammas, gammah, gammac, gamm
 underreporting=17;
 
 
-hunData=underreporting*{32,39,50,58,73,85,103,131,167,187,226,261,
-300,343,408,447,492,525,585,623,678,733,744,817,895,
-980,1190,1310,1410,1458,1512,1579,1652,1763,1834,1916,
-1984,2098,2168,2284,2383,2443,2500,2583,2649,2727,2775,2863,2942,2998,3035,3065,3111,3150,3178,3213,3263,3284};
+hunData=
+	underreporting*{
+		32,39,50,58,73,85,103,
+		131,167,187,226,261,300,343,
+		408,447,492,525,585,623,678,
+		733,744,817,895,980,1190,1310,
+		1410,1458,1512,1579,1652,1763,1834,
+		1916,1984,2098,2168,2284,2383,2443,
+		2500,2583,2649,2727,2775,2863,2942,
+		2998,3035,3065,3111,3150,3178,3213,
+		3263,3284
+};
 
 
 func=Interpolation[Table[{i-1,hunData[[i]]},{i,1,57}]]
 
 
 (*Cumulative curve*)
-plot=Show[
-		LogPlot[
-			{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
-			LabelStyle->Directive[35,Black],
-			PlotRange->{{0,All},{20,All}},
-			AxesOrigin->{0.,20.},
-			AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 35],
-			LabelStyle->Directive[Black, 35],
-			PlotLabel->Style["Cumulative number of cases"],
-			PlotStyle->{{Thickness[0.01],ColorData["Crayola"]["MidnightBlue"]},Opacity[0]},
-			Filling->{1->{2}},
-			FillingStyle->Directive[ColorData["Crayola"]["BlizzardBlue"], Opacity[0.25]],
-			Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
-					{1,10,100,1000,{10000,10000},{100000,100000},{1000000,1000000},{10000000,10000000}}}],
-		ListLogPlot[Table[{i-1,hunData[[i]]},{i,1,57}],
-			PlotStyle->{{Thickness[0.01],
-						ColorData["Crayola"]["Blue"]}}],
-		ListLogPlot[Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
-			PlotStyle->{{Thickness[0.01],
-						ColorData["Crayola"]["Red"]}}],
-		Background->White,
-		ImageSize->{1000,500}]
+plot=
+Show[
+	LogPlot[
+		{Evaluate[Sum[c[i][t],{i,1,nAge}]/.sol],func[t]},{t,0,56},
+		LabelStyle->Directive[25,Black],
+		PlotRange->{{0,All},{20,All}},	
+		AxesOrigin->{0.,20.},
+		AxesStyle->Directive[Thickness[0.005], Black, FontSize -> 25],
+		LabelStyle->Directive[Black, 25],
+		PlotLabel->Style["Cumulative number of cases"],
+		PlotStyle->{{Thickness[0.01],RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]},Opacity[0]},
+		Filling->{1->{2}},
+		FillingStyle->Directive[RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Opacity[0.25]],
+		Ticks->{{{0,"March 15"}, {16,"April 1"}, {31, "April 15"}, {46, "May 1"},{56, "May 10"}},
+				{{1,"1 "},{10,"10 "},{100,"100 "},{1000,"1000 "},{10000,"10000 "},{100000,"100000 "},{1000000,"1000000 "},{10000000,"10000000 "}}}
+	],
+	ListLogPlot[
+		Table[{i-1,hunData[[i]]},{i,1,57}],
+		PlotStyle->{{Thickness[0.01],
+					RGBColor[0.9372549019607843`,0.4627450980392157`,0.19215686274509802`]}}
+	],
+	ListLogPlot[
+		Table[{i-1,1/underreporting*hunData[[i]]},{i,1,57}],
+		PlotStyle->{{Thickness[0.01],
+					RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`]}}
+	],
+	Background->White,
+	ImageSize->{1000,500}
+]
 
 
 Export[StringJoin[generated,"impactOfMeasures.pdf"],plot]
@@ -1664,36 +1841,39 @@ distinctVector=maximumList[[1+Round[(1.0-hmultInit)*stepSize],1+Round[(1.65-R0in
 
 
 legendMax=40000;
-plot=Show[
-		ListContourPlot[
-			Flatten[maximumList,1],
-				PlotRange->{{0.00289,0.0089},{1.1,2.4}},
-				Contours->({#, If[Round[#] == 8000,
-								Directive[Thickness[0.0075], White],
-								Null
-								]}& /@ Range[ 0, legendMax, 1000]),
-				PlotLegends->BarLegend[{Automatic, {0, legendMax}},
-										Table[i,{i,0,40000,1000}],
-										LegendMarkerSize->300],
-				ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
-				ColorFunctionScaling -> False,
-				FrameLabel->{"IFR",
-							 Style["\[ScriptCapitalR]",FontSize->35]},
-							 LabelStyle->Directive[20, Black]],
-		Graphics[
-			{White, PointSize[0.025], Point[{0.00393415,1.695}]}],
-		ImageSize->500]
+plot=
+Show[
+	ListContourPlot[
+		Flatten[maximumList,1],
+			PlotRange->{{0.00289,0.0085},{1.1,2.4}},
+			Contours->({#, If[Round[#] == 8000,
+							Directive[Thickness[0.0075], White],
+							Null
+							]}& /@ Range[ 0, legendMax, 1000]),
+			PlotLegends->BarLegend[{Automatic, {0, legendMax}},
+									Table[i,{i,0,40000,1000}],
+									LegendMarkerSize->300],
+			ColorFunction->ColorData[{"RedBlueTones", {legendMax,0}}],
+			ColorFunctionScaling -> False,
+			FrameLabel->{"IFR",
+						 Style["\[ScriptCapitalR]",FontSize->35]},
+						 LabelStyle->Directive[20, Black]],
+	Graphics[
+		{White, PointSize[0.025], Point[{0.00393415,1.685}]}],
+	ImageSize->500,
+	Ticks->{{0.004},Table[{i, StringJoin[ToString[i], " "]}, {i,1.2, 2.4, 0.2}]}
+]
 
 
 Export[StringJoin[generated,"contourPlot.pdf"],plot]
 
 
 (* ::Chapter::Closed:: *)
-(*Technical appendix*)
+(*Methodology*)
 
 
 (* ::Section::Closed:: *)
-(*Contact matrix - heatmap*)
+(*Plots for Figure 13.*)
 
 
 (* ::Subsection::Closed:: *)
@@ -1703,51 +1883,73 @@ Export[StringJoin[generated,"contourPlot.pdf"],plot]
 a=ColorData[{"ValentineTones", "Reverse"}];
 
 
-b=Function[x, (x; x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix]))];
+b=Function[x, (x; 
+			   x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix]))
+];
 
 
-c=Function[x, a[b[x]]];
+cc=Function[x, a[b[x]]];
 
 
-contactMatrix =
-{{2.85265757236992`,1.0168035823185497`,0.9685513913908559`,3.6394710640997423`,0.7636165091831196`,0.26465811449632815`,0.16478042597673156`},
-{0.4920476243619219`,5.5591531856025815`,1.3504814369626075`,4.594274005138205`,0.7201168699258064`,0.5079625876327662`,0.2712341242084005`},
-{0.27685605410253394`,0.7977189385389726`,6.219897755428148`,6.522055041065205`,0.6110526839596531`,0.3066735514563918`,0.14958519657799538`},
-{0.4176563153332957`,1.0895009251108805`,2.618387301006593`,5.4218448320596275`,0.9159669127390052`,0.43426172617935965`,0.19979273798286082`},
-{0.26756270229416934`,0.5214145882147075`,0.7490271587498547`,2.7967218055259924`,1.6643410756692467`,0.6027761432448209`,0.17003271688765734`},
-{0.13848711461847765`,0.5492699095199908`,0.5613957491247491`,1.9801355696025458`,0.9001812106572092`,0.7311654280330745`,0.1455885636741889`},
-{0.16475717166363135`,0.5604191442260885`,0.5232340130971493`,1.7407548882408745`,0.4852001613787113`,0.2781901927944575`,0.5505304214784429`}};
+contactMatrix =aggregatePREM[contactPREM];
 
 
 Transpose[contactMatrix];
 
 
-labelfuncH[s_] = Rotate[Style[s, 15], Pi/2];
-labelfuncV[s_] = Style[s, 15];
+labelfuncH[w_] = Rotate[Style[w, 15], Pi/2];
+labelfuncV[w_] = Style[w, 15];
 
 
-AgelabelsH=Thread[{Range[7], {labelfuncH["0-4 "], labelfuncH["5-14 "], labelfuncH["15-29 "], labelfuncH["30-59 "], labelfuncH["60-69 "], labelfuncH["70-79 "], labelfuncH["80-     "]}}];
-AgelabelsV=Thread[{Range[7], {labelfuncV["0-4"], labelfuncV["5-14"], labelfuncV["15-29"], labelfuncV["30-59"], labelfuncV["60-69"], labelfuncV["70-79"], labelfuncV["80-    "]}}];
+AgelabelsH=
+Thread[
+{
+	Range[7], 
+	{
+		labelfuncH["0-4 "], 
+		labelfuncH["5-14 "], 
+		labelfuncH["15-29 "], 
+		labelfuncH["30-59 "], 
+		labelfuncH["60-69 "], 
+		labelfuncH["70-79 "], 
+		labelfuncH["80-     "]
+	}
+}];
+AgelabelsV=
+Thread[
+{
+	Range[7], 
+	{
+		labelfuncV["0-4"], 
+		labelfuncV["5-14"], 
+		labelfuncV["15-29"], 
+		labelfuncV["30-59"], 
+		labelfuncV["60-69"], 
+		labelfuncV["70-79"], 
+		labelfuncV["80-    "]
+	}
+}];
 
 
 (* ::Subsection::Closed:: *)
-(*Plot - Figure C1.*)
+(*Contact matrix - heat map*)
 
 
 cntxmatrixplot =
-Labeled[
-	MatrixPlot[
-		Transpose[contactMatrix],
-			ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])];)],
-			ColorFunctionScaling->False,
-			PlotLegends -> Automatic,
-			DataReversed -> True,
-			FrameTicks->{AgelabelsV, AgelabelsH},
-			ImageSize->Scaled[.3]],
-			{Rotate[Style["Age of contact", 20, Bold], Pi/2], Style["Age of individual", 20, Bold]},
-			{Left, Bottom},
-			Spacings->{2, 1}
-	]
+MatrixPlot[
+	Transpose[contactMatrix],
+		ColorFunction->Function[x, (x; a[x / (Max[contactMatrix] - Min[contactMatrix]) + 0.1 - Min[contactMatrix] / (Max[contactMatrix] - Min[contactMatrix])])],
+		ColorFunctionScaling->False,
+		PlotLegends -> Automatic,
+		LabelStyle->Directive[FontSize->15],
+		DataReversed -> True,
+		FrameTicks->{AgelabelsV, AgelabelsH},
+		ImageSize->500,
+		FrameLabel->{Style["Age of contact", 20], Style["Age of individual", 20]}
+]
 
 
 Export[StringJoin[generated,"contactMatrix_heatMap.pdf"],cntxmatrixplot];
+
+
+PlotLabel
