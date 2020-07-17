@@ -28,24 +28,26 @@ Begin["`Private`"]
 dataFolder=StringJoin[ToString[NotebookDirectory[]],"/data/"]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Age distribution*)
 
 
 (*Hungarian Statistical Office (KSH) data*)
 population1Y=Import[StringJoin[dataFolder,"age_distribution.xls"]][[1]][[All,2]];
-ageDistribution={
+(*ageDistribution={
 Sum[population1Y[[i]],{i,1,5}],
 Sum[population1Y[[i]],{i,6,15}],
 Sum[population1Y[[i]],{i,16,30}],
 Sum[population1Y[[i]],{i,31,60}],
 Sum[population1Y[[i]],{i,61,70}],
 Sum[population1Y[[i]],{i,71,80}],
-Sum[population1Y[[i]],{i,81,Length[population1Y]}]};
+Sum[population1Y[[i]],{i,81,Length[population1Y]}]};*)
+ageDistribution={7492,16960,38202,67367,19713,11613,6701}
 
 
 (*Age distribution with 5y bins+*)
-population5Y = Flatten[{Table[Sum[population1Y[[i]],{i,5*j+1,5*j+5}],{j,0,14}],Sum[population1Y[[i]],{i,76,Length[population1Y]}]}];
+(*population5Y = Flatten[{Table[Sum[population1Y[[i]],{i,5*j+1,5*j+5}],{j,0,14}],Sum[population1Y[[i]],{i,76,Length[population1Y]}]}];*)
+population5Y = {7492,9742,7218,11299,15376,11527,13278,13622,11688,9356,12273,7150,10769,8944,6667,11647};
 
 
 (* ::Subsubsection::Closed:: *)
@@ -76,14 +78,16 @@ contactPREMschool=contactData[[sid["school"]]];
 contactPREMother=contactData[[sid["other"]]];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Transformators*)
 
 
 aggregatePREM[matrix_]:=Module[
 {ageGroup80, ageGroup75, ratio75, numberOfContacts, bins, newMatrix},
-ageGroup80=Sum[population1Y[[i]],{i,81,Length[population1Y]}];
-ageGroup75=Sum[population1Y[[i]],{i,76,80}];
+(*ageGroup80=Sum[population1Y[[i]],{i,81,Length[population1Y]}];
+ageGroup75=Sum[population1Y[[i]],{i,76,80}];*)
+ageGroup80=6701;
+ageGroup75=4946;
 ratio75 = N[ageGroup75/(ageGroup75+ageGroup80)];
 numberOfContacts=Table[(matrix[[i,j]]*population5Y[[i]]+matrix[[j,i]]*population5Y[[j]])/(2),{i,1,Length[matrix]},{j,1,Length[matrix]}];
 bins={1,2,4,7,13,15,16};

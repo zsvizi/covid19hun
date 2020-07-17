@@ -152,15 +152,15 @@ ticklabel3={{0,"1.May"},{31+30+31+31,"1.Sept"},{31+30+31+31+30+31+30+31,"1.Jan"}
 (*Plots for Figure 6*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Plots for hospitalization*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
-R0=1.65;
+R0=2.2;
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
@@ -172,19 +172,17 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 plt=Plot[
 	{Sum[ih[i][t] + icr[i][t],{i,1,nAge}]/.sol, 
-	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,500},
+	Sum[ic[i][t],{i,1,nAge}]/.sol},{t,0,200},
 		PlotRange->{0,All},
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black,35],
 		AxesStyle->Directive[Thickness[0.005]],
-		PlotLabel->Style["Weak control, R = 1.65\nTotal hospital bed and ICU need"],
+		PlotLabel->Style["Weak control, R = 2.2\nTotal hospital bed and ICU need"],
 		PlotStyle->twoPlotsStylehosp,
 		Frame->{{True, False},{True, False}},
 		FrameStyle-> Directive[Thickness[0.005], 35],
 		FrameLabel->{"days since release",""},
-		Background->White,
-		FrameTicks->{Table[i,{i,0,500,100}],
-					{{5000, "5,000 "},{10000, "10,000 "},{15000,"15,000 "},{20000,"20,000 "}}}, 
+		Background->White, 
 		ImageSize->900]
 
 
@@ -299,15 +297,15 @@ FindMaximum[Sum[ih[i][t]+icr[i][t],{i,1,nAge}]/.sol,{t,100}]
 FindMaximum[Sum[ic[i][t],{i,1,nAge}]/.sol,{t,100}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Plots for incidence*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
-R0=1.65;
+R0=2.2;
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
@@ -318,7 +316,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 
 plt=Plot[
-	fincidence[s],{s,1,500},
+	fincidence[s],{s,1,150},
 		PlotRange->{0, All},
 		PlotRangePadding->{{0, 0}, {0, Scaled[0.02]}},
 		LabelStyle->Directive[Black, 35],
@@ -329,8 +327,6 @@ plt=Plot[
 		FrameLabel->{"days since release",""},
 		PlotStyle->twoPlotsStyle,
 		Background->White,
-		FrameTicks->{Table[i,{i,0,500,100}],
-					{{20000,"20,000 "},{40000,"40,000 "},{60000,"60,000 "},{80000,"80,000 "},{100000,"100,000 "},{120000,"120,000 "}}},
 		ImageSize->900]
 
 
@@ -422,7 +418,7 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*Plots for Figure 7*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Mortality*)
 
 
@@ -430,7 +426,7 @@ Export[StringJoin[generated,"strong_inc.pdf"],plt]
 (*R = 1.65*)
 
 
-R0=1.65;
+R0=2.2;
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
@@ -442,7 +438,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 
 plt=Plot[
 	Evaluate[mortalityCumulative/.sol],{t,0,200},
-		PlotLabel->Style["Mortality\nR=1.65"],
+		PlotLabel->Style["Mortality\nR=2.2"],
 		PlotRange->{0,All},
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
@@ -464,8 +460,6 @@ plt=Plot[
 				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
 				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
 		Background->White,
-		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
-					{{5000,"5,000 "},{10000,"10,000 "},{15000,"15,000 "},{20000,"20,000 "}}},
 		ImageSize->900]
 
 
@@ -586,15 +580,15 @@ Export[StringJoin[generated,"strong_mort.pdf"],plt]
 FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Recovered*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*R = 1.65*)
 
 
-R0=1.65;
+R0=2.2;
 
 
 baseBeta=NGM[contactMatrix, R0, nAge, alpha, alpha2, gammaa, gammas, gammah, gammac, gammacr, pA, asymp];
@@ -607,7 +601,7 @@ sol=modelSolver[beta, initialValuesImod, alpha, alpha2, gammaa, gammas, gammah, 
 plt=Plot[
 	Evaluate[cumulative/.sol],{t,0,200},
 		PlotRange->{0,All},
-		PlotLabel->Style["Recovered\nR=1.65"],
+		PlotLabel->Style["Recovered\nR=2.2"],
 		PlotStyle->{{RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`], Thickness[0.0075]},
 					{RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`], Thickness[0.0075]},
 					{RGBColor[0.9568627450980391`,0.7607843137254902`,0.3254901960784314`], Thickness[0.0075]},
@@ -628,8 +622,6 @@ plt=Plot[
 				{2-> {{1}, RGBColor[0.2549019607843137`,0.7176470588235294`,0.7058823529411764`]}},
 				{1-> {Axis, RGBColor[0.615686274509804`,0.8196078431372549`,0.7333333333333333`]}}},
 		Background->White,
-		FrameTicks->{{0, 30, 60, 90, 120, 150,180},
-					{{1000000,"1 Mio. "},{2000000,"2 Mio. "},{3000000,"3 Mio. "},{4000000,"4 Mio. "},{5000000,"5 Mio. "}}},
 		ImageSize->900]
 
 
