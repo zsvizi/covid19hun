@@ -186,6 +186,15 @@ plt=Plot[
 		ImageSize->900]
 
 
+nCumu=7;
+comps=Table[sol[[1]][[i]][[1]],{i,1,Length[sol[[1]]-nCumu]}];
+vals=Table[Join[{t}, Flatten[Table[comps[[i]]/.sol, {i,1,Length[sol[[1]]]-nCumu}]]],{t,0,200}];
+output=Join[{Join[{" "},comps]}, vals];
+
+
+Export["output.csv", output]
+
+
 Export[StringJoin[generated,"weak_hosp.pdf"],plt]
 
 
@@ -584,7 +593,7 @@ FindMaximum[mortalityCumulative[[7]]/.sol,{t,70}]//Quiet
 (*Recovered*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*R = 1.65*)
 
 
