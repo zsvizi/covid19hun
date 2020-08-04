@@ -98,7 +98,7 @@ cumulative=Table[Sum[c[j][t],{j,1,i}],{i,1,nAge}];
 t0=t/.FindRoot[sumOfI[t]==5000,{t,150}][[1]]
 
 
-die0=t/.FindRoot[fdie[t]==38,{t,150}][[1]]
+die0=t/.FindRoot[fdie[t]==2,{t,150}][[1]]
 
 
 (* ::Section::Closed:: *)
